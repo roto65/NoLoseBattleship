@@ -1,0 +1,8 @@
+/.vscode
+/CMakeCache.txt
+/CMakeFiles
+/Makefile
+/battaglia_navale
+/cmake_install.cmake
+/libBattagliaNavale.a
+/replay
