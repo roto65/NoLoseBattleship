@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 
 #include "BattleShip.h"
@@ -10,7 +11,10 @@ BattleShip::BattleShip(){
 BattleShip::BattleShip(std::string front, std::string back){
     Pos F (front);
     Pos B (back);    //conversione da stringa a pos
-    if(F.x == B.x){
+    if (distance(F, B) != 4.0) {
+        throw illegal_length();
+    }
+    if(F.x == B.x) {
         _facing = 1;
     } else {
         _facing = 0;
@@ -27,11 +31,19 @@ bool BattleShip::action(std::string input, Player p1, Player p2){
         return false;
     }
     else{
-        char hit;
-        
-        p1.getAttackField().insertChar(hit, I);
+        for(Ship* s : p2.getDefenceField().getShipArray()){
+            std::vector<Pos> segments = getSegments(s);
+            for(Pos p : segments){
+                if(p==I){
+                    p1.getAttackField().insertChar('X', I);
+                    return true;
+                }
+            }
+        }
+        p1.getAttackField().insertChar('O', I);
+        return true;
     }
-    return true;
+    
 }
 
 void BattleShip::resetShield() {

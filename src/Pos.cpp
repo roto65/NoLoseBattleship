@@ -1,3 +1,4 @@
+#include <math.h>
 #include <string>
 
 #include "Pos.h"
@@ -28,6 +29,14 @@ Pos operator+ (Pos p1, Pos p2) {
     return Pos (p1.x + p2.x, p1.y + p2.y);
 }
 
+Pos operator- (Pos p1, Pos p2) {
+    return Pos (p1.x - p2.x, p1.y - p2.y);
+}
+
 bool operator== (Pos p1, Pos p2) {
     return (p1.x == p2.x) && (p1.y == p2.y);
+}
+
+double distance(Pos p1, Pos p2) {
+    return std::sqrt(std::pow(p1.x - p2.x, 2) + std::pow(p1.y - p2.y, 2));
 }

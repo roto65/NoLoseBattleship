@@ -10,14 +10,33 @@ class Submarine : public Ship {
 
     public:
         Submarine();
-        Submarine(std::string front, std::string back);
+        Submarine(std::string point);
 
+        /*
+            override del metodo action.
+        */
         bool action(std::string input, Player p1, Player p2) override;
-        void resetShield();
+        
+        /*
+            override del metodo resetShield().
+        */
+        void resetShield() override;
 
     private:
-        void move(std::string input);
-        void scan();
+        /*
+            metodo per spostare la nave in una posizione data da input
+            controlla che la posizione inserita sia all'interno del campo di gioco 
+            e che la nave non si sovrapponga ad altre presenti nel campo.
+
+            Definito bool per permettere il ciclo nel main in caso si inserimento non corretto 
+        */
+        bool move(std::string input, std::vector<Ship*> ships);
+
+        /*
+            metodo per la scansione del campo avversario 
+            per la ricerca di navi in un'area 5x5 dal sottomarino che sta effetuando l'azione
+        */
+        void scan(Player p, std::vector<Ship*> ships);
 
 };
 

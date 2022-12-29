@@ -6,9 +6,9 @@ include_directories(include)
 
 add_library(${PROJECT_NAME}
     src/Pos.cpp
-    src/Player.cpp
     src/AttackField.cpp
     src/DefenceField.cpp
+    src/Player.cpp
     src/Ship.cpp
     src/BattleShip.cpp
     src/HealShip.cpp

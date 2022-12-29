@@ -4,7 +4,9 @@
 #include <ostream>
 #include <vector>
 
-#include "Ship.h"
+#include "Types.h" //Forward declarated classes
+#include "Pos.h"
+
 
 class DefenceField {
 
@@ -15,7 +17,7 @@ class DefenceField {
         int getShipCount();
 
         bool insertShip(Ship* s); //se va bene (fa i controlli del caso), inserisce la nave nell'array
-        bool checkShip(Pos p);
+        bool checkShip(Pos p); //verifica se c'è una nave
         
     private:
         std::vector<Ship*> _field;
@@ -27,5 +29,7 @@ class DefenceField {
 // aggiorna se true lo shield della nave colpita (position aware)
 
 std::ostream& operator<<(std::ostream& os, const DefenceField df);
+
+#include "Ship.h"
 
 #endif // DEFENCE_FILELD_H

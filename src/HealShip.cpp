@@ -8,7 +8,8 @@ HealShip::HealShip() {
 
 HealShip::HealShip (std::string front, std::string back) {
     Pos F (front);
-    Pos B (back);    //conversione da stringa a pos
+    Pos B (back);  
+    //controllo se la nave inserita è orizzontale o verticale 
     if(F.x == B.x){
         _facing = 1;
     } else {
@@ -21,7 +22,7 @@ HealShip::HealShip (std::string front, std::string back) {
 }
 
 bool HealShip::action(std::string input, Player p1, Player p2) {
-    if (move(input,p1.getDefenceField().getShipArray())) {
+    if (move(input, p1.getDefenceField().getShipArray())) {
         heal(p1.getDefenceField().getShipArray());
         return true;
     } else {
@@ -34,12 +35,13 @@ void HealShip::resetShield() {
 }
 
 bool HealShip::move (std::string input, std::vector<Ship*> ship){
-    //fai i cazzo di controlli per la posizione
     switch(_facing){
-        case 0:
-            if (_midPos.x > 10 || _midPos.y > 11){
+        case 0: //nave orizzontale
+            //controllo che la nave sia dentro il campo da gioco 
+            if (_midPos.x<0 || _midPos.x > 10 || _midPos.y<0 || _midPos.y > 11){
                 return false;
             }
+            //controllo che la nave non si sovrapponga ad altre già presenti 
             for(Ship* s : ship){
                 std::vector<Pos> segment = getSegments(s);
                 for(Pos p : segment){
@@ -49,8 +51,8 @@ bool HealShip::move (std::string input, std::vector<Ship*> ship){
                 }
             }
             break;
-        case 1:
-            if (_midPos.x > 11 || _midPos.y > 10){
+        case 1://nave verticale
+            if (_midPos.x<0 || _midPos.x > 11 || _midPos.y<0 || _midPos.y > 10){
                 return false;
             }
             for(Ship* s : ship){
@@ -68,18 +70,16 @@ bool HealShip::move (std::string input, std::vector<Ship*> ship){
 }
 
 void HealShip::heal(std::vector<Ship*> ship){
-    // area 3x3 intorno al _midPos --> basta che ci sia un segmento della nave per curarla tutta
     for (Ship* s : ship){
-        std::vector<Pos> segment = getSegments(s);
-        for(Pos p : segment){
-            switch(_facing){
-                case 0:
-                    if (p == (_midPos + Pos(-1,-1)) || p == (_midPos + Pos(0,-1)) || p == (_midPos + Pos(1,-1)) || p == (_midPos + Pos(-1,1)) || p == (_midPos + Pos(0,1)) || p == (_midPos + Pos(1,1))){
-                        s->resetShield(); //metodo da scrivere
-                    }
-                    break;
-                case 1:
-                    break;
+        std::vector<Pos> segments = getSegments(s);
+        for(Pos pos : segments){
+            /*
+                il controllo che un segmento di una nave sia dentro l'area di influenza della HealShip
+                 è effetuato controllando che la distanza tra il segmento e il centro della HealShip sia <=1 
+                 per entrambi gli assi cartesiani  
+            */
+            if(std::abs(pos.x - _midPos.x) <= 1 && std::abs(pos.y - _midPos.y) <= 1){
+                s->resetShield();
             }
         }
     }

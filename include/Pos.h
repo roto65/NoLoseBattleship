@@ -14,7 +14,10 @@ struct Pos {
 };
 
 Pos operator+ (Pos p1, Pos p2);
+Pos operator- (Pos p1, Pos p2);
 
 bool operator== (Pos p1, Pos p2);
+
+double distance(Pos p1, Pos p2);
 
 #endif //POS_H

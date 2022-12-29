@@ -20,6 +20,10 @@ Pos Ship::getMidPos(){
     return _midPos;
 }
 
+int Ship::getLength(){
+    return _length;
+}
+
 std::vector<char> Ship::getShield(){
     return _shield;
 }
@@ -30,16 +34,18 @@ void Ship::setShield(std::vector<char> shield){
 
 std::vector<Pos> getSegments(Ship* s){
     std::vector <Pos> segments;
+    int halfLen = (s -> getLength()) / 2;
     switch(s->getFacing()){
         case 0:
-            segments.push_back(s->getMidPos() + Pos(0,-1));
-            segments.push_back(s->getMidPos());
-            segments.push_back(s->getMidPos() + Pos(0,1));
-        break;
+            for (int i = -halfLen; i <= halfLen; i++) {
+                segments.push_back(s -> getMidPos() + Pos (0, i));
+            }
+            break;
         case 1:
-            segments.push_back(s->getMidPos() + Pos(-1,0));
-            segments.push_back(s->getMidPos());
-            segments.push_back(s->getMidPos() + Pos(1,0));
+            for (int i = -halfLen; i <= halfLen; i++) {
+                segments.push_back(s -> getMidPos() + Pos (i, 0));
+            }
+            break;
     }
     return segments;
 }

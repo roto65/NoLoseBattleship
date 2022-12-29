@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Types.h" //Forward declarated classes
+
 #include "AttackField.h"
 #include "DefenceField.h"
 
