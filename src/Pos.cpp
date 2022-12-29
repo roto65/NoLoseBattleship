@@ -15,14 +15,16 @@ Pos::Pos (int X, int Y) {
 Pos::Pos(std::string s) {
     int letter = (int) s[0];
 
-    if (letter > 73) letter =- 2; // ASCII di J = 74
-    letter =- 65; // ASCII di A = 65
+    if (letter >= 97) letter -= 32; // ASCII di a = 97
+
+    if (letter > 73) letter -= 2;   // ASCII di J = 74
+    letter -= 65;                   // ASCII di A = 65
 
     int number = std::stoi(s.substr(1));
     number--;
 
-    x = letter;
-    y = number;
+    x = number;
+    y = letter;
 }
 
 Pos operator+ (Pos p1, Pos p2) {

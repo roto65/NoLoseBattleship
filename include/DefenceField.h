@@ -14,19 +14,15 @@ class DefenceField {
         DefenceField();
 
         std::vector<Ship*> getShipArray(); //restituisce l'array delle navi
+        void setShipArray(std::vector<Ship*> arr);
         int getShipCount();
 
-        bool insertShip(Ship* s); //se va bene (fa i controlli del caso), inserisce la nave nell'array
+        bool insertShip(Ship* newShip); //se va bene (fa i controlli del caso), inserisce la nave nell'array
         bool checkShip(Pos p); //verifica se c'è una nave
         
     private:
         std::vector<Ship*> _field;
 };
-
-// getShield()[2] = 'c';
-
-// metodo: restituisce se hai hittato o meno (bool) + 
-// aggiorna se true lo shield della nave colpita (position aware)
 
 std::ostream& operator<<(std::ostream& os, const DefenceField df);
 

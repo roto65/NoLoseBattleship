@@ -12,7 +12,7 @@ AttackField Player::getAttackField() {
     return _af;
 }
 
-DefenceField Player::getDefenceField() {
+DefenceField& Player::getDefenceField() {
     return _df;
 }
 

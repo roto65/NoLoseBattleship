@@ -35,15 +35,15 @@ void Ship::setShield(std::vector<char> shield){
 std::vector<Pos> getSegments(Ship* s){
     std::vector <Pos> segments;
     int halfLen = (s -> getLength()) / 2;
-    switch(s->getFacing()){
+    switch(s -> getFacing()){
         case 0:
             for (int i = -halfLen; i <= halfLen; i++) {
-                segments.push_back(s -> getMidPos() + Pos (0, i));
+                segments.push_back(s -> getMidPos() + Pos (i, 0));
             }
             break;
         case 1:
             for (int i = -halfLen; i <= halfLen; i++) {
-                segments.push_back(s -> getMidPos() + Pos (i, 0));
+                segments.push_back(s -> getMidPos() + Pos (0, i));
             }
             break;
     }

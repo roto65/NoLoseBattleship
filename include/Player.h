@@ -12,7 +12,7 @@ class Player {
         Player();
 
         AttackField getAttackField();
-        DefenceField getDefenceField(); //richiama DefenceField::getShipArray() 
+        DefenceField& getDefenceField(); //richiama DefenceField::getShipArray() 
 
         void printFields();
     private:

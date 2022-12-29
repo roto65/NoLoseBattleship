@@ -10,33 +10,31 @@
 #include "Submarine.h"
 
 
-int main (void) {
-    Player _p1;
-    Player _p2;
+int main (void) { 
+
+    Player p1;
+    Player p2;
     std::string front, back, point;
-    while(_p1.getDefenceField().getShipCount() < 8){
+    while(p1.getDefenceField().getShipCount() < 8){
         for (int i = 0; i < 3;){
-            std::cout<<"Inserire le coordinate della prua e della poppa della "<< i+1 <<" corazzata\n";
+            std::cout<< "Inserire le coordinate della prua e della poppa della "<< i+1 <<" corazzata:" << std::endl;
             std::cin >> front >> back;
-            BattleShip _tempShip (front, back);
-            if (_p1.getDefenceField().insertShip(&_tempShip)) i++;
-            
+            BattleShip* tempShip = new BattleShip(front, back);
+            if (p1.getDefenceField().insertShip(tempShip)) i++;
         }
         for (int i = 0; i < 3;){
-            std::cout<<"Inserire le coordinate della prua e della poppa della "<< i+1 <<" nave di supporto\n";
+            std::cout<< "Inserire le coordinate della prua e della poppa della "<< i+1 <<" nave di supporto:" << std::endl;
             std::cin >> front >> back;
-            HealShip _tempShip (front, back);
-            if (_p1.getDefenceField().insertShip(&_tempShip)) i++; 
+            HealShip* tempShip = new HealShip(front, back);
+            if (p1.getDefenceField().insertShip(tempShip)) i++; 
         }
         for(int i = 0; i < 2;){
-            std::cout<<"Inserire le coordinate della prua e della poppa del "<< i+1 <<" sottomarino\n";
+            std::cout<< "Inserire le coordinate della prua e della poppa del "<< i+1 <<" sottomarino:" << std::endl;
             std::cin >> point;
-            Submarine _tempShip (point);
-            if (_p1.getDefenceField().insertShip(&_tempShip)) i++;
+            Submarine* tempShip = new Submarine(point);
+            if (p1.getDefenceField().insertShip(tempShip)) i++;
         }
     }
-
-
 
     return 0;
 }
