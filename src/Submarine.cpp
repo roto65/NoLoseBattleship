@@ -13,22 +13,19 @@ Submarine::Submarine (std::string point) {
     _midPos.y = P.y;    
     _facing = 0;      // facing e' ereditato da ship ma in submarine non viene mai utilizzato (valore 0 come default)
     _length = 1;
+    _upperChar = 'E';
+    _lowerChar = 'e';
     resetShield();
 }
 
-bool Submarine::action(std::string input, Player p1, Player p2) {
-     if (move(input,p1.getDefenceField().getShipArray())) {
+bool Submarine::action(std::string XYTarget, Player p1, Player p2) {
+     if (move(XYTarget,p1.getDefenceField().getShipArray())) {
         scan(p1, p2.getDefenceField().getShipArray());
         return true;
     } else {
         return false;
     }
 }
-
-void Submarine::resetShield() {
-    _shield = {'E'};
-}
-
 
 bool Submarine::move(std::string input, std::vector<Ship*> ships){
     //controllo che la posizione sia nel campo da gioco 

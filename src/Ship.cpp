@@ -24,15 +24,29 @@ int Ship::getLength(){
     return _length;
 }
 
+char Ship::getUpperChar() {
+    return _upperChar;
+}
+
+char Ship::getLowerChar() {
+    return _lowerChar;
+}
+
 std::vector<char> Ship::getShield(){
     return _shield;
 }
 
 void Ship::setShield(std::vector<char> shield){
-    _shield=shield;
+    _shield = shield;
 }
 
-std::vector<Pos> getSegments(Ship* s){
+void Ship::resetShield() {
+    for (char c : _shield) {
+        c = _upperChar;
+    }
+}
+
+std::vector<Pos> getSegments(Ship* s) {
     std::vector <Pos> segments;
     int halfLen = (s -> getLength()) / 2;
     switch(s -> getFacing()){

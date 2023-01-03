@@ -18,20 +18,18 @@ HealShip::HealShip (std::string front, std::string back) {
     _midPos.x = (F.x + B.x) / 2;
     _midPos.y = (F.y + B.y) / 2;
     _length = 3;
+    _upperChar = 'S';
+    _lowerChar = 's';
     resetShield();
 }
 
-bool HealShip::action(std::string input, Player p1, Player p2) {
-    if (move(input, p1.getDefenceField().getShipArray())) {
+bool HealShip::action(std::string XYTarget, Player p1, Player p2) {
+    if (move(XYTarget, p1.getDefenceField().getShipArray())) {
         heal(p1.getDefenceField().getShipArray());
         return true;
     } else {
         return false;
     }
-}
-
-void HealShip::resetShield() {
-    _shield = {'S','S','S'};
 }
 
 bool HealShip::move (std::string input, std::vector<Ship*> ship){

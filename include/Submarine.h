@@ -15,12 +15,7 @@ class Submarine : public Ship {
         /*
             override del metodo action.
         */
-        bool action(std::string input, Player p1, Player p2) override;
-        
-        /*
-            override del metodo resetShield().
-        */
-        void resetShield() override;
+        bool action(std::string XYTarget, Player p1, Player p2) override;
 
     private:
         /*

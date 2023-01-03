@@ -5,22 +5,20 @@
 #include "DefenceField.h"
 #include "Ship.h"
 
-constexpr std::array<char, 12> labels = {'A','B','C','D','E','F','G','H','I','L','M','N'};
-
 DefenceField::DefenceField() {
 
 }
 
 std::vector<Ship*> DefenceField::getShipArray() {
-    return _field;
+    return _defenceField;
 }
 
 void DefenceField::setShipArray(std::vector<Ship*> arr) {
-    _field = arr;
+    _defenceField = arr;
 }
 
 int DefenceField::getShipCount() {
-    return _field.size();
+    return _defenceField.size();
 }
 
 bool DefenceField::insertShip(Ship* newShip) {
@@ -31,7 +29,7 @@ bool DefenceField::insertShip(Ship* newShip) {
             return false; //se un pezzo della nave è fuori dal campo questa non viene inserita
         }
         else {
-            for(Ship* s : _field) {
+            for(Ship* s : _defenceField) {
                 std::vector<Pos> segments = getSegments(s);
                 for(Pos p : segments) {
                     if(p == temp[i]) {
@@ -41,6 +39,18 @@ bool DefenceField::insertShip(Ship* newShip) {
             }
         }
     }
-    _field.push_back(newShip);
+    _defenceField.push_back(newShip);
     return true;
+}
+
+std::vector<std::string> DefenceField::getField(){
+    std::vector<std::string> _fieldArray (12,"            "); //stringa di 12 elementi vuoti
+    for (Ship* s : _defenceField){
+        int i = 0;
+        for(Pos p : getSegments(s)){
+            _fieldArray[p.y][p.x] = s->getShield()[i];
+            i++;
+        }
+    }
+    return _fieldArray;
 }

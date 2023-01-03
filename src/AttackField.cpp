@@ -3,12 +3,29 @@
 #include "AttackField.h"
 #include "Pos.h"
 
-constexpr std::array<char, 12> labels  {'A','B','C','D','E','F','G','H','I','L','M','N'};
-
 AttackField::AttackField() {
 
 }
 
 bool AttackField::insertChar(char c, Pos p) {
-    return true;
+    if (_attackfield[p.y][p.x] != ' '){
+        return false;
+    } else {
+        _attackfield[p.y][p.x] = c;
+        return true;
+    }
+}
+
+void AttackField::clearSonar(){
+    for (int i = 0; i < _attackfield.size(); i++){
+        for (int j = 0; j < _attackfield[i].size(); j++){
+            if (_attackfield[i][j] == 'Y'){
+                _attackfield[i][j] == ' ';
+            }
+        }
+    }
+}
+
+std::vector<std::string> AttackField::getField() {
+    return _attackfield;
 }

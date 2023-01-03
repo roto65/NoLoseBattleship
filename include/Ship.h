@@ -17,20 +17,24 @@ class Ship {
         int getFacing();
         Pos getMidPos();
         int getLength();
+        char getUpperChar();
+        char getLowerChar();
+
         std::vector<char> getShield();
         void setShield(std::vector<char> shield);
+        
 
         /*
             metodo per riportare la nave a "tutta integra" quando viene curata da una HealShip
         */
-        virtual void resetShield() = 0;
+        void resetShield();
         
         /*
             metodo per eseguire l'azione tipica di una nave.
             Definito bool per permettere il ciclo nel main 
             in caso di inserimento di dati non accettabili
         */
-        virtual bool action(std::string input, Player p1, Player p2) = 0; 
+        virtual bool action(std::string XYTarget, Player p1, Player p2) = 0; 
         //p1 giocatore che esegue l'azione / p2 giocatore che subisce l'azione
         
         class illegal_length : public std::exception {
@@ -45,7 +49,9 @@ class Ship {
         int _facing;                // 0 -> nave orizzontale / 1 -> nave verticale
         int _length;                // lunghezza della nave
         std::vector<char> _shield;  // corazza della nave / minuscole = segmento colpito / maiuscole = segmento intatto
-            
+        char _upperChar;
+        char _lowerChar;
+
         bool isSunk();
 };
 

@@ -11,6 +11,8 @@ struct Pos {
     Pos (int X, int Y);
     Pos (std::string s);
 
+    std::string toString();
+
 };
 
 Pos operator+ (Pos p1, Pos p2);

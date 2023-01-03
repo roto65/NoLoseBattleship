@@ -18,13 +18,12 @@ class DefenceField {
         int getShipCount();
 
         bool insertShip(Ship* newShip); //se va bene (fa i controlli del caso), inserisce la nave nell'array
-        bool checkShip(Pos p); //verifica se c'è una nave
+        std::vector<std::string> getField();
         
     private:
-        std::vector<Ship*> _field;
+        std::vector<Ship*> _defenceField; 
 };
 
-std::ostream& operator<<(std::ostream& os, const DefenceField df);
 
 #include "Ship.h"
 

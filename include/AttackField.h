@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <ostream>
 
 #include "Pos.h"
 
@@ -14,11 +13,10 @@ class AttackField {
 
         bool insertChar(char c, Pos p);
         void clearSonar();
+        std::vector<std::string> getField();
 
     private:
-        std::vector<std::string> _field;
+        std::vector<std::string> _attackfield;
 };
-
-std::ostream& operator<<(std::ostream& os, const AttackField af);
 
 #endif // ATTACK_FIELD_H

@@ -19,5 +19,6 @@ class Player {
         AttackField  _af;
         DefenceField _df;
 };
+bool activateShipAction(std::string XYOrigin, std::string XYTarget, Player p1, Player p2);
 
 #endif // PLAYER_H
