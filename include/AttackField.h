@@ -13,6 +13,9 @@ class AttackField {
 
         bool insertChar(char c, Pos p);
         void clearSonar();
+        void clearHit();
+        void clearMiss();
+        
         std::vector<std::string> getField();
 
     private:

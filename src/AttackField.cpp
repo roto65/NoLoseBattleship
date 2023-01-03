@@ -26,6 +26,26 @@ void AttackField::clearSonar(){
     }
 }
 
+void AttackField::clearHit(){
+    for (int i = 0; i < _attackfield.size(); i++){
+        for (int j = 0; j < _attackfield[i].size(); j++){
+            if (_attackfield[i][j] == 'X'){
+                _attackfield[i][j] == ' ';
+            }
+        }
+    }
+}
+
+void AttackField::clearMiss(){
+    for (int i = 0; i < _attackfield.size(); i++){
+        for (int j = 0; j < _attackfield[i].size(); j++){
+            if (_attackfield[i][j] == 'O'){
+                _attackfield[i][j] == ' ';
+            }
+        }
+    }
+}
+
 std::vector<std::string> AttackField::getField() {
     return _attackfield;
 }

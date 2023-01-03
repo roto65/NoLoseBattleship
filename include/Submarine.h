@@ -2,6 +2,7 @@
 #define SUBMARINE_H
 
 #include <string>
+#include <memory>
 
 #include "Ship.h"
 #include "Player.h"
@@ -25,13 +26,13 @@ class Submarine : public Ship {
 
             Definito bool per permettere il ciclo nel main in caso si inserimento non corretto 
         */
-        bool move(std::string input, std::vector<Ship*> ships);
+        bool move(std::string input, std::vector<std::shared_ptr<Ship>> ships);
 
         /*
             metodo per la scansione del campo avversario 
             per la ricerca di navi in un'area 5x5 dal sottomarino che sta effetuando l'azione
         */
-        void scan(Player p, std::vector<Ship*> ships);
+        void scan(Player p, std::vector<std::shared_ptr<Ship>> ships);
 
 };
 

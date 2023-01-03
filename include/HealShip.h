@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Ship.h"
 #include "Pos.h"
@@ -27,14 +28,14 @@ class HealShip : public Ship {
 
             Definito bool per permettere il ciclo nel main in caso si inserimento non corretto 
         */
-        bool move(std::string input, std::vector <Ship*> ship);
+        bool move(std::string input, std::vector <std::shared_ptr<Ship>> ship);
 
         /*
             metodo per ripristinare lo shield di ogni nave 
             che abbia almento un segmento all'interno di un'area 3x3 
             dal centro della HealShip che sta effettuando l'azione
         */
-        void heal(std::vector<Ship*> ship);
+        void heal(std::vector<std::shared_ptr<Ship>> ship);
 
 };
 

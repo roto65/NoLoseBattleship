@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "BattleShip.h"
 #include "Pos.h"
@@ -11,7 +12,7 @@ BattleShip::BattleShip(){
 BattleShip::BattleShip(std::string front, std::string back){
     Pos F (front);
     Pos B (back);    //conversione da stringa a pos
-    if (distance(F, B) != 4.0) {
+    if (distance(F, B) != 4) {
         throw illegal_length();
     }
     if(F.x == B.x) {
@@ -33,7 +34,7 @@ bool BattleShip::action(std::string XYTarget, Player p1, Player p2){
         return false;
     }
     else{
-        for(Ship* s : p2.getDefenceField().getShipArray()){
+        for(std::shared_ptr<Ship> s : p2.getDefenceField().getShipArray()){
             std::vector<Pos> segments = getSegments(s);
             int i = 0;
             for(Pos p : segments){

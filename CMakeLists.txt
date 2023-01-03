@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 2.84)
 set(CMAKE_CXX_STANDARD 11)
 project(BattagliaNavale)
 
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+
+set(CMAKE_CXX_FLAGS_DEBUG "-O2")
+
 include_directories(include)
 
 add_library(${PROJECT_NAME}

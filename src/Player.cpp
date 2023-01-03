@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "Player.h"
 #include "AttackField.h"
@@ -36,7 +37,7 @@ void Player::printFields() {
 }
 bool activateShipAction(std::string XYOrigin, std::string XYTarget, Player p1, Player p2){
     Pos p (XYOrigin);
-    for (Ship* s : p1.getDefenceField().getShipArray()){
+    for (std::shared_ptr<Ship> s : p1.getDefenceField().getShipArray()){
         if(s->getMidPos() == p){
             s->action(XYTarget, p1, p2);
             return true;

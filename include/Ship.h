@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <exception>
+#include <memory>
 
 #include "Types.h" //Forward declarated classes
 
@@ -39,10 +40,11 @@ class Ship {
         
         class illegal_length : public std::exception {
             public:
-                const char* what() {
-                    return "Illegal Length";
+                const char* what() const noexcept {
+                    return "La lunghezza inserita non e' valida!\n";
                 }
         };
+        bool isSunk();
 
     protected:
         Pos _midPos;                // posizione centrale della nave. identifica la nave
@@ -51,10 +53,8 @@ class Ship {
         std::vector<char> _shield;  // corazza della nave / minuscole = segmento colpito / maiuscole = segmento intatto
         char _upperChar;
         char _lowerChar;
-
-        bool isSunk();
 };
 
-std::vector<Pos> getSegments(Ship*);
+std::vector<Pos> getSegments(std::shared_ptr<Ship> s);
 
 #endif // SHIP_H

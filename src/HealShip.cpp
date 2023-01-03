@@ -1,4 +1,5 @@
 #include <string>
+#include <memory>
 
 #include "HealShip.h"
 
@@ -8,7 +9,10 @@ HealShip::HealShip() {
 
 HealShip::HealShip (std::string front, std::string back) {
     Pos F (front);
-    Pos B (back);  
+    Pos B (back);
+    if (distance(F, B) != 2) {
+        throw illegal_length();
+    } 
     //controllo se la nave inserita è orizzontale o verticale 
     if(F.x == B.x){
         _facing = 1;
@@ -32,7 +36,7 @@ bool HealShip::action(std::string XYTarget, Player p1, Player p2) {
     }
 }
 
-bool HealShip::move (std::string input, std::vector<Ship*> ship){
+bool HealShip::move (std::string input, std::vector<std::shared_ptr<Ship>> ship){
     switch(_facing){
         case 0: //nave orizzontale
             //controllo che la nave sia dentro il campo da gioco 
@@ -40,7 +44,7 @@ bool HealShip::move (std::string input, std::vector<Ship*> ship){
                 return false;
             }
             //controllo che la nave non si sovrapponga ad altre già presenti 
-            for(Ship* s : ship){
+            for(std::shared_ptr<Ship> s : ship){
                 std::vector<Pos> segment = getSegments(s);
                 for(Pos p : segment){
                     if (p == _midPos || p == (_midPos + Pos(-1,0)) || p == (_midPos + Pos(1,0))){
@@ -53,7 +57,7 @@ bool HealShip::move (std::string input, std::vector<Ship*> ship){
             if (_midPos.x<0 || _midPos.x > 11 || _midPos.y<0 || _midPos.y > 10){
                 return false;
             }
-            for(Ship* s : ship){
+            for(std::shared_ptr<Ship> s : ship){
                 std::vector<Pos> segment = getSegments(s);
                 for(Pos p : segment){
                     if (p == _midPos || p == (_midPos + Pos(0,-1)) || p == (_midPos + Pos(0,1))){
@@ -67,8 +71,8 @@ bool HealShip::move (std::string input, std::vector<Ship*> ship){
     return true;
 }
 
-void HealShip::heal(std::vector<Ship*> ship){
-    for (Ship* s : ship){
+void HealShip::heal(std::vector<std::shared_ptr<Ship>> ship){
+    for (std::shared_ptr<Ship> s : ship){
         std::vector<Pos> segments = getSegments(s);
         for(Pos pos : segments){
             /*

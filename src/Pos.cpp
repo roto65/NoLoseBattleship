@@ -1,5 +1,7 @@
 #include <math.h>
 #include <string>
+#include <stdexcept>
+#include <iostream>
 
 #include "Pos.h"
 
@@ -17,6 +19,8 @@ Pos::Pos(std::string s) {
 
     if (letter >= 97) letter -= 32; // ASCII di a = 97
 
+    if(letter==74||letter==75) throw std::invalid_argument("Invalid argument");
+
     if (letter > 73) letter -= 2;   // ASCII di J = 74
     letter -= 65;                   // ASCII di A = 65
 
@@ -25,6 +29,7 @@ Pos::Pos(std::string s) {
 
     x = number;
     y = letter;
+    std::cout<<"n="<<number<<"l="<<letter<<std::endl;
 }
 
 std::string Pos::toString() {

@@ -3,6 +3,7 @@
 
 #include <ostream>
 #include <vector>
+#include <memory>
 
 #include "Types.h" //Forward declarated classes
 #include "Pos.h"
@@ -13,15 +14,16 @@ class DefenceField {
     public:
         DefenceField();
 
-        std::vector<Ship*> getShipArray(); //restituisce l'array delle navi
-        void setShipArray(std::vector<Ship*> arr);
+        std::vector<std::shared_ptr<Ship>> getShipArray(); //restituisce l'array delle navi
+        void setShipArray(std::vector<std::shared_ptr<Ship>> arr);
         int getShipCount();
 
-        bool insertShip(Ship* newShip); //se va bene (fa i controlli del caso), inserisce la nave nell'array
+        bool insertShip(std::shared_ptr<Ship> newShip); //se va bene (fa i controlli del caso), inserisce la nave nell'array
+        bool removeShips();
         std::vector<std::string> getField();
         
     private:
-        std::vector<Ship*> _defenceField; 
+        std::vector<std::shared_ptr<Ship>> _defenceField; 
 };
 
 

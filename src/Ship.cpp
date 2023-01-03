@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "Ship.h"
 
 Ship::Ship() {
@@ -46,7 +48,7 @@ void Ship::resetShield() {
     }
 }
 
-std::vector<Pos> getSegments(Ship* s) {
+std::vector<Pos> getSegments(std::shared_ptr<Ship> s) {
     std::vector <Pos> segments;
     int halfLen = (s -> getLength()) / 2;
     switch(s -> getFacing()){

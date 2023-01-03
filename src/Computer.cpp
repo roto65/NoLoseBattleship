@@ -1,4 +1,5 @@
 #include <random>
+#include <memory>
 
 #include "Computer.h"
 #include "Pos.h"
@@ -7,13 +8,13 @@ constexpr int FIELD_SIZE = 11;
 
 std::vector<std::string> Computer::createRandomShip(int dim){
     Pos front=getRandomPosition();
-    std::vector<Pos> direction {Pos(0,dim),Pos(0,-1*dim),Pos(dim,0),Pos(-1*dim,0)};
+    std::vector<Pos> direction {Pos(0,dim-1),Pos(0,-1*(dim-1)),Pos(dim-1,0),Pos(-1*(dim-1),0)};
     int i = randomNum(direction.size() - 1);
     Pos back=front+direction[i];
     return std::vector<std::string> {front.toString(),back.toString()};
 }
 
-std::string Computer::selectRandomShip(std::vector<Ship*> s){
+std::string Computer::selectRandomShip(std::vector<std::shared_ptr<Ship>> s){
     int i = randomNum(s.size() - 1);
     return s[i] -> getMidPos().toString();
 }
