@@ -18,7 +18,7 @@ class HealShip : public Ship {
         /*
             override del metodo action.
         */
-        bool action(std::string XYTarget, Player p1, Player p2) override;
+        bool action(std::string XYTarget, Player& p1, Player& p2) override;
 
     private:
         /*

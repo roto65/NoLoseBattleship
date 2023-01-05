@@ -21,7 +21,7 @@ class Ship {
         char getUpperChar();
         char getLowerChar();
 
-        std::vector<char> getShield();
+        std::vector<char>& getShield();
         void setShield(std::vector<char> shield);
         
 
@@ -35,7 +35,7 @@ class Ship {
             Definito bool per permettere il ciclo nel main 
             in caso di inserimento di dati non accettabili
         */
-        virtual bool action(std::string XYTarget, Player p1, Player p2) = 0; 
+        virtual bool action(std::string XYTarget, Player& p1, Player& p2) = 0; 
         //p1 giocatore che esegue l'azione / p2 giocatore che subisce l'azione
         
         class illegal_length : public std::exception {

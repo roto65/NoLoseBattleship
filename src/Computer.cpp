@@ -1,5 +1,6 @@
 #include <random>
 #include <memory>
+#include <iostream>
 
 #include "Computer.h"
 #include "Pos.h"
@@ -19,8 +20,21 @@ std::string Computer::selectRandomShip(std::vector<std::shared_ptr<Ship>> s){
     return s[i] -> getMidPos().toString();
 }
 
-std::string Computer::randomAction() {
-    return getRandomPosition().toString();
+void Computer::action(Player& p2, std::vector<std::string>& _matchActions) {
+    if (_df.getShipCount() == 0) { //se non ci sono più navi disponibili viene passato il turno
+        return;
+    }
+    bool actionDone;    //verifica se è stata eseguita un azione / false azione non esguita /true azione eseguita
+    do {
+        actionDone = false;
+        std::string XYOrigin = selectRandomShip(_df.getShipArray());
+        std::string XYTarget = getRandomPosition().toString();
+
+        if (activateShipAction(XYOrigin, XYTarget, *this, p2)) {
+            _matchActions.push_back(XYOrigin + " " + XYTarget);
+            actionDone=true;
+        }
+    } while (!actionDone);
 }
 
 Pos getRandomPosition() {
@@ -28,10 +42,10 @@ Pos getRandomPosition() {
     return randPos;
 }
 
-int randomNum(int max) {
+int randomNum(int max, int min) {
     std::random_device rd;
     std::mt19937 mt (rd());                             // Mersenne Twister 19937 random number generator
-    std::uniform_int_distribution<int> dist (0, max); 
+    std::uniform_int_distribution<int> dist (min, max); 
 
     return dist(rd);
 }

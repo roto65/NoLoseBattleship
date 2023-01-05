@@ -1,0 +1,19 @@
+m1 m5
+b1 b5
+c1 c5
+d1 d3
+e1 e3
+f1 f3
+h5
+n3
+I12 I8
+E4 A4
+M8 M4
+G10 G12
+G5 E5
+G2 G4
+E6
+C5
+M3 A1
+M6 H7
+NN NN

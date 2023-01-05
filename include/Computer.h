@@ -10,9 +10,9 @@ class Computer : public Player {
     public:
         std::vector<std::string> createRandomShip(int dim);
         std::string selectRandomShip (std::vector<std::shared_ptr<Ship>> s);  //forse da sostituire Pos con string per tenere traccia nei replay
-        std::string randomAction ();        
+        void action (Player& p2, std::vector<std::string>& _matchActions);       
 };
 
 Pos getRandomPosition();
-int randomNum (int max);
+int randomNum (int max, int min = 0);
 #endif // COMPUTER_H

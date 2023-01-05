@@ -24,10 +24,10 @@ HealShip::HealShip (std::string front, std::string back) {
     _length = 3;
     _upperChar = 'S';
     _lowerChar = 's';
-    resetShield();
+    _shield = std::vector<char> (_length, _upperChar);
 }
 
-bool HealShip::action(std::string XYTarget, Player p1, Player p2) {
+bool HealShip::action(std::string XYTarget, Player& p1, Player& p2) {
     if (move(XYTarget, p1.getDefenceField().getShipArray())) {
         heal(p1.getDefenceField().getShipArray());
         return true;

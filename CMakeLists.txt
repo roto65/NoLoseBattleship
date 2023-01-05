@@ -11,6 +11,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-O2")
 include_directories(include)
 
 add_library(${PROJECT_NAME}
+    src/FilesIO.cpp
     src/Pos.cpp
     src/AttackField.cpp
     src/DefenceField.cpp

@@ -25,10 +25,10 @@ BattleShip::BattleShip(std::string front, std::string back){
     _length = 5;
     _upperChar = 'C';
     _lowerChar = 'c';
-    resetShield();
+    _shield = std::vector<char> (_length, _upperChar);
 }
 
-bool BattleShip::action(std::string XYTarget, Player p1, Player p2){
+bool BattleShip::action(std::string XYTarget, Player& p1, Player& p2){
     Pos I (XYTarget);
     if((I.x<12&&I.x>=0)&&(I.y<12&&I.y>=0)){
         return false;

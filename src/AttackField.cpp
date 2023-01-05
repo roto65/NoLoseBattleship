@@ -4,7 +4,7 @@
 #include "Pos.h"
 
 AttackField::AttackField() {
-
+    _attackfield = std::vector<std::string> (12,"            ");
 }
 
 bool AttackField::insertChar(char c, Pos p) {

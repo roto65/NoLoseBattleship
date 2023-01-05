@@ -3,6 +3,7 @@
 
 #include <ostream>
 #include <vector>
+#include <exception>
 #include <memory>
 
 #include "Types.h" //Forward declarated classes
@@ -20,7 +21,22 @@ class DefenceField {
 
         bool insertShip(std::shared_ptr<Ship> newShip); //se va bene (fa i controlli del caso), inserisce la nave nell'array
         bool removeShips();
+        void nukeShips();
         std::vector<std::string> getField();
+
+        class out_of_bound : public std::exception {
+            public:
+                const char* what() const noexcept {
+                    return "Tentativo di inserire nave fuori dalla griglia\n";
+                }
+        };
+
+        class overlap : public std::exception {
+            public:
+                const char* what() const noexcept {
+                    return "Tentativo di inserire nave in posizione occupata da un'altra nave\n";
+                }
+        };
         
     private:
         std::vector<std::shared_ptr<Ship>> _defenceField; 

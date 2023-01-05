@@ -16,10 +16,10 @@ Submarine::Submarine (std::string point) {
     _length = 1;
     _upperChar = 'E';
     _lowerChar = 'e';
-    resetShield();
+    _shield = std::vector<char> (_length, _upperChar);
 }
 
-bool Submarine::action(std::string XYTarget, Player p1, Player p2) {
+bool Submarine::action(std::string XYTarget, Player& p1, Player& p2) {
      if (move(XYTarget,p1.getDefenceField().getShipArray())) {
         scan(p1, p2.getDefenceField().getShipArray());
         return true;
