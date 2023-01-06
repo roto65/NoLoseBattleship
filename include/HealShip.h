@@ -6,9 +6,12 @@
 #include <memory>
 
 #include "Ship.h"
-#include "Pos.h"
+#include "Player.h"
 
-
+/*
+    classe che gestisce una nave di supporto.
+    Estende la classe Ship
+*/
 class HealShip : public Ship {
 
     public:
@@ -17,10 +20,13 @@ class HealShip : public Ship {
 
         /*
             override del metodo action.
+            La nave da supporto si sposta in una posizione data da input;
+            cura tutte le navi che hanno almeno un segmento in un'area 3x3 dal centro della nave di supporto
         */
         bool action(std::string XYTarget, Player& p1, Player& p2) override;
 
     private:
+
         /*
             metodo per spostare la nave in una posizione data da input
             controlla che la posizione inserita sia all'interno del campo di gioco 
@@ -28,14 +34,14 @@ class HealShip : public Ship {
 
             Definito bool per permettere il ciclo nel main in caso si inserimento non corretto 
         */
-        bool move(std::string input, std::vector <std::shared_ptr<Ship>> ship);
+        bool move(std::string XYTarget, std::vector <std::shared_ptr<Ship>> ship);
 
         /*
             metodo per ripristinare lo shield di ogni nave 
             che abbia almento un segmento all'interno di un'area 3x3 
             dal centro della HealShip che sta effettuando l'azione
         */
-        void heal(std::vector<std::shared_ptr<Ship>> ship);
+        void heal(std::vector<std::shared_ptr<Ship>>& ship);
 
 };
 

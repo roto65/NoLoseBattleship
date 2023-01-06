@@ -1,37 +1,68 @@
 #ifndef DEFENCE_FIELD_H
 #define DEFENCE_FIELD_H
 
-#include <ostream>
 #include <vector>
+#include <string>
 #include <exception>
 #include <memory>
 
 #include "Types.h" //Forward declarated classes
-#include "Pos.h"
 
-
+/*
+    classe che gestisce il campo di difesa di un giocatore
+*/
 class DefenceField {
 
     public:
         DefenceField();
 
-        std::vector<std::shared_ptr<Ship>> getShipArray(); //restituisce l'array delle navi
-        void setShipArray(std::vector<std::shared_ptr<Ship>> arr);
+        /*
+           metodo che restituisce il vettore delle navi  
+        */
+        std::vector<std::shared_ptr<Ship>>& getShipArray(); 
+
+        /*
+            metodo che restituisce il numero di navi ancora in gioco 
+        */
         int getShipCount();
 
-        bool insertShip(std::shared_ptr<Ship> newShip); //se va bene (fa i controlli del caso), inserisce la nave nell'array
-        bool removeShips();
+        /*
+            metodo per inserire una nuova nave all'interno del vettore di navi
+        */
+        bool insertShip(std::shared_ptr<Ship> newShip);
+
+        /*
+            metodo che scorre tutto il vettore di navi;
+            rimuove un'eventuale nave che ha lo shield completamente distrutto
+        */
+        void removeShips();
+
+        /*
+            metodo per distruggere tutte le navi
+        */
         void nukeShips();
+
+        /*
+            metodo che trasforma il vettore di navi in un vettore di stringhe 
+            per poter essere poi stampato a schermo 
+        */
         std::vector<std::string> getField();
 
-        class out_of_bound : public std::exception {
+        /*
+            eccezione lanciata in caso di tentato inserimento di una nave fuori dalla griglia di gioco 
+        */
+        class out_of_bound_exception : public std::exception {
             public:
                 const char* what() const noexcept {
                     return "Tentativo di inserire nave fuori dalla griglia\n";
                 }
         };
 
-        class overlap : public std::exception {
+        /*
+            eccezione lanciata nel caso si cerchi di posizionare una nave 
+            che vada a sovrapporsi a una già esistente
+        */
+        class overlap_exception : public std::exception {
             public:
                 const char* what() const noexcept {
                     return "Tentativo di inserire nave in posizione occupata da un'altra nave\n";
@@ -41,7 +72,6 @@ class DefenceField {
     private:
         std::vector<std::shared_ptr<Ship>> _defenceField; 
 };
-
 
 #include "Ship.h"
 

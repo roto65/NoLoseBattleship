@@ -20,6 +20,7 @@ add_library(${PROJECT_NAME}
     src/BattleShip.cpp
     src/HealShip.cpp
     src/Submarine.cpp
+    src/DummyPlayer.cpp
     src/Computer.cpp)
 
 add_executable(battaglia_navale src/Main.cpp)

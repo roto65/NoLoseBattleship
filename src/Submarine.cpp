@@ -28,30 +28,37 @@ bool Submarine::action(std::string XYTarget, Player& p1, Player& p2) {
     }
 }
 
-bool Submarine::move(std::string input, std::vector<std::shared_ptr<Ship>> ships){
-    //controllo che la posizione sia nel campo da gioco 
-    if(_midPos.x<0||_midPos.x>11||_midPos.y<0||_midPos.y>11){ 
+bool Submarine::move(std::string XYTarget, std::vector<std::shared_ptr<Ship>> ships){
+    Pos targetPos (XYTarget);
+
+    //controllo che la posizione sia nel campo da gioco
+    if (_midPos.x<0||_midPos.x>11||_midPos.y<0||_midPos.y>11){ 
         return false;
     }
-    else {  
+    else if (_midPos == targetPos) {
+        // controllo se la nave si sta muovendo sul posto (il sottomarino fa solo scan)
+        return true;
+    } else {  
         //controllo che la nave non si sovrapponga ad altre presenti sul campo 
         for(std::shared_ptr<Ship> s : ships){
             std::vector<Pos> segment = getSegments(s);
             for(Pos p : segment) {
-                if(p == _midPos) {
+                if(p == targetPos) {
                     return false;
                 }
             }
         }
     }
-    _midPos = Pos(input);
+    _midPos = targetPos;
     return true;
 }
 
-void Submarine::scan(Player player, std::vector<std::shared_ptr<Ship>> ships){  
+void Submarine::scan(Player& player, std::vector<std::shared_ptr<Ship>> ships){  
     for(int i = (_midPos.x - 2); i <= (_midPos.x + 2); i++){
         for (int j = (_midPos.y -2); j <= (_midPos.y + 2); j++){
-            player.getAttackField().insertChar(' ', Pos(i,j));
+            if (0 <= i && i <= 11 && 0 <= j && j <= 11){
+                player.getAttackField().insertChar(' ', Pos(i,j));
+            }
         }
     }
     for(std::shared_ptr<Ship> s : ships){
@@ -70,6 +77,7 @@ void Submarine::scan(Player player, std::vector<std::shared_ptr<Ship>> ships){
                     player.getAttackField().insertChar('X', pos);
                 }
             }
+            i++;
         }
     }
 }

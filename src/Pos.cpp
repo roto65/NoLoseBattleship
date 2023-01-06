@@ -16,12 +16,12 @@ Pos::Pos (int X, int Y) {
 Pos::Pos(std::string s) {
     int letter = (int) s[0];
 
-    if (letter >= 97) letter -= 32; // ASCII di a = 97
+    if (letter >= 97) letter -= 32; // ASCII di a = 97 --> converte in maiuscola
 
-    if(letter==74||letter==75) throw std::invalid_argument("Invalid argument"); //se input è j o k non può essere convertito
+    if(letter==74||letter==75) throw std::invalid_argument("Invalid argument"); //se input è J o K non può essere convertito
 
     if (letter > 73) letter -= 2;   // ASCII di J = 74
-    letter -= 65;                   // ASCII di A = 65
+    letter -= 65;                   // ASCII di A = 65 --> converte in numero
 
     int number = std::stoi(s.substr(1)); //può lanciare std::invalid_argument
     number--;

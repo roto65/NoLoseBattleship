@@ -38,14 +38,8 @@ std::vector<char>& Ship::getShield() {
     return _shield;
 }
 
-void Ship::setShield(std::vector<char> shield) {
-    _shield = shield;
-}
-
 void Ship::resetShield() {
-    for (char c : _shield) {
-        c = _upperChar;
-    }
+    _shield = std::vector<char> (_length, _upperChar);
 }
 
 std::vector<Pos> getSegments(std::shared_ptr<Ship> s) {
