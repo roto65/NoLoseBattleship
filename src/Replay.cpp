@@ -1,8 +1,9 @@
 #include <string>
 #include <iostream>
 #include <queue>
+#include <memory>
 #include <thread>
-#include <chrono> // per lo sleep
+#include <chrono> 
 
 #include "Replay.h"
 #include "FilesIO.h"
@@ -14,6 +15,13 @@
 
 std::queue<std::string> match_actions;
 
+constexpr int sleepTime = 1;
+
+/*
+    enum per poter fare lo switch sulle varie modalita' di replay:
+    v = stampa a video
+    f = stampa su file
+*/
 enum Arguments {
     invalidArgument, v, f
 };
@@ -25,88 +33,120 @@ Arguments resolveArgument (std::string input) {
     return invalidArgument;
 }
 
-// 0 comando ./replay
-// 1 v f
-// 2 input path
-// 3 output path
-
 int main (int argc, char* argv[]) {
+
     if (argc < 2 ) {
-        std::cout<<"Non è stato inserito l'argomento che specifica la modalita' di replay!\n";
+        std::cout << "Non è stato inserito l'argomento che specifica la modalita' di replay!" << std::endl;
         return 0;
     }
     std::string argument = argv[1];
 
     if (argc < 3) {
-        std::cout<<"Inserire anche il nome del log di cui si vuole vedere il replay\n";
+        std::cout << "Inserire anche il nome del log di cui si vuole vedere il replay" << std::endl;
         return 0;
     }
     std::string inputPath = argv[2];
 
     if (argc < 4 && argument == "f") {
-        std::cout<<"Inserire anche il nome del file in cui si vuole salvare il replay\n";
+        std::cout << "Inserire anche il nome del file in cui si vuole salvare il replay" << std::endl;
         return 0;
     }
-    std::string outputPath;
+    std::string outputPath, XYTarget, XYOrigin;
 
-    DummyPlayer p1,p2;
+    DummyPlayer p1 ("Giocatore 1"), p2 ("Giocatore 2");
     match_actions = importLog(inputPath);
+
     insertShip(p1);
     insertShip(p2);
-    std::vector<std::string> Vercingetorige;
+    
+    std::vector<std::string> outputVector;
+    
+    int startPlayer = std::stoi(match_actions.front());
+    match_actions.pop();
+
+    std::string startPlayerLine = "Inizia il giocatore " + std::to_string(startPlayer + 1) + "\n";
 
     switch (resolveArgument(argument)) {
-    case v:
-        while(!match_actions.empty()){
-            //p1.action(match_actions.); da riscrivere action
+        case v:
             p1.printFields();
-            std::cout<<std::endl<<std::endl; // a capi per staccare
+
+            std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
+
             p2.printFields();
-            std::cout<<std::endl<<std::endl; // a capi per staccare
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-        }
-        break;
-    case f: //riscrivere action
-        while(!match_actions.empty()){
-            Vercingetorige.push_back(p1.getFields());
-            Vercingetorige.push_back(p2.getFields());       
-        }
-        outputPath = argv[3];
-        exportLog(Vercingetorige, outputPath);
-        break;
-    
-    default:
-        std::cout << "Inserire:\n"
-            << "- \"v\" se si vuole vedere il replay di una partita a terminale\n" 
-            << "- \"f\" se si vuole vedere il replay di una partita in un file a parte" << std::endl;
-        return 0;
-        break;
+
+            std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
+
+            std::cout << startPlayerLine << std::endl;
+
+            while (!match_actions.empty()) {
+                XYOrigin = nextElem(match_actions);
+                XYTarget = nextElem(match_actions);
+
+                if (startPlayer % 2 == 0) {
+                    p1.action(XYOrigin, XYTarget, p2);
+                    p1.printFields();
+                } else {
+                    p2.action(XYOrigin, XYTarget, p1);
+                    p2.printFields();
+                }
+                std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
+                startPlayer++;
+            }
+            break;
+        case f:
+            outputVector.push_back(p1.getFields());
+            outputVector.push_back(p2.getFields());
+            outputVector.push_back(startPlayerLine);
+
+            while(!match_actions.empty()) {
+                XYOrigin = nextElem(match_actions);
+                XYTarget = nextElem(match_actions);
+
+                if (startPlayer % 2 == 0) {
+                    p1.action(XYOrigin, XYTarget, p2);
+                    outputVector.push_back(p1.getFields());
+                } else {
+                    p2.action(XYOrigin, XYTarget, p1);
+                    outputVector.push_back(p2.getFields());
+                }
+                startPlayer++;                  
+            }
+            outputPath = argv[3];
+            exportLog(outputVector, outputPath);
+            break;
+        default:
+            std::cout << "Inserire:\n"
+                << "- \"v\" se si vuole vedere il replay di una partita a terminale\n" 
+                << "- \"f\" se si vuole vedere il replay di una partita in un file a parte" << std::endl;
+            return 0;
+            break;
     }
     return 0;
 }
 
 void insertShip(DummyPlayer& p) {
     std::string front, back, point;
-    for (int i = 0; i < 3;) {
-            front=match_actions.front();
-            match_actions.pop();
-            back=match_actions.front();
-            match_actions.pop();
-            std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
-            p.getDefenceField().insertShip(u);
+    for (int i = 0; i < 3; i++) {
+        front = nextElem(match_actions);
+        back = nextElem(match_actions);
+        std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
+        p.getDefenceField().insertShip(u);
     }
-    for (int i = 0; i < 3;) {
-            front=match_actions.front();
-            match_actions.pop();
-            back=match_actions.front();
-            match_actions.pop();
-            std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
-            p.getDefenceField().insertShip(u);
+    for (int i = 0; i < 3; i++) {
+        front = nextElem(match_actions);
+        back = nextElem(match_actions);
+        std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
+        p.getDefenceField().insertShip(u);
     }
-    for(int i = 0; i < 2;i++) {
-            point=match_actions.front();
-            match_actions.pop();
-            std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
-            p.getDefenceField().insertShip(u);
+    for (int i = 0; i < 2; i++) {
+        point=nextElem(match_actions);
+        std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
+        p.getDefenceField().insertShip(u);
     }
+}
+
+std::string nextElem(std::queue<std::string>& queue) {
+    std::string elem = queue.front();
+    queue.pop();
+    return elem;
 }

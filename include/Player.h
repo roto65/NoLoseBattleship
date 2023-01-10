@@ -15,6 +15,7 @@ class Player {
 
     public:
         Player();
+        Player(std::string name);
 
         /*
             metodo che restituisce il campo di attacco di un giocatore
@@ -40,6 +41,8 @@ class Player {
     protected:
         AttackField  _af;
         DefenceField _df;
+
+        std::string _name;
 };
 
 /*

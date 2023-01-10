@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 
 #include "AttackField.h"
 #include "Pos.h"
@@ -40,7 +41,7 @@ void AttackField::clearHit() {
     }
 }
 
-void AttackField::clearMiss(){
+void AttackField::clearMiss() {
     /*
         i campi vengono gestiti come matrici bidimensionali
         in quanto le stringhe possono essere considerate array di char
@@ -50,6 +51,14 @@ void AttackField::clearMiss(){
             if (_attackfield[i][j] == 'O') {
                 _attackfield[i][j] = ' ';
             }
+        }
+    }
+}
+
+void AttackField::nukeField() {
+    for (int i = 0; i < _attackfield.size(); i++) {
+        for (int j = 0; j < _attackfield[i].size(); j++) {
+            _attackfield[i][j] = 'X';
         }
     }
 }

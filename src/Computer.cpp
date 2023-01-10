@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 #include <random>
 #include <memory>
 
@@ -6,6 +7,14 @@
 #include "Pos.h"
 
 constexpr int FIELD_SIZE = 11;
+
+Computer::Computer() {
+
+}
+
+Computer::Computer(std::string name) {
+    _name = name;
+}
 
 std::vector<std::string> Computer::createRandomShip(int dim) {
     Pos front = getRandomPosition();
@@ -16,8 +25,8 @@ std::vector<std::string> Computer::createRandomShip(int dim) {
 }
 
 std::string Computer::selectRandomShip(std::vector<std::shared_ptr<Ship>> s) {
-    int i = randomNum(s.size() - 1,0);
-    return s[i] -> getMidPos().toString();
+    int i = randomNum(s.size() - 1, 0);
+    return s[i]->getMidPos().toString();
 }
 
 void Computer::action(Player& p2, std::vector<std::string>& matchActions) {
@@ -31,7 +40,7 @@ void Computer::action(Player& p2, std::vector<std::string>& matchActions) {
         std::string XYTarget = getRandomPosition().toString();
         if (activateShipAction(XYOrigin, XYTarget, *this, p2)) {
             matchActions.push_back(XYOrigin + " " + XYTarget);
-            actionDone=true;
+            actionDone = true;
         }
     } while (!actionDone);
 }

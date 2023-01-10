@@ -15,6 +15,8 @@
 */
 class Computer : public Player {
     public:
+        Computer();
+        Computer(std::string name);
 
         /*
             metodo per creare in maniera casuale un nave, sapendone la lunghezza

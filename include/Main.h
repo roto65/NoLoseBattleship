@@ -16,7 +16,9 @@ void insertComputerShip(Computer& c);
 
 /*
     metodo che gestisce le condizioni di terminazione di una partita;
-    Decreta che giocatore ha vinto o se la partita e' finita in parita'
+    decreta che giocatore ha vinto o se la partita e' finita in parita';
+    il metodo ritorna false quando la partita finisce in modo che il while di gameLoop si interrompa
+
 */
 bool endGame(Player p1, Player p2, int round);
 

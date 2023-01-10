@@ -1,6 +1,7 @@
-#include <math.h>
 #include <string>
 #include <stdexcept>
+
+#include <math.h>
 
 #include "Pos.h"
 
@@ -8,7 +9,7 @@ Pos::Pos() {
     
 }
 
-Pos::Pos (int X, int Y) {
+Pos::Pos(int X, int Y) {
     x = X;
     y = Y;
 }
@@ -16,14 +17,14 @@ Pos::Pos (int X, int Y) {
 Pos::Pos(std::string s) {
     int letter = (int) s[0];
 
-    if (letter >= 97) letter -= 32; // ASCII di a = 97 --> converte in maiuscola
+    if (letter >= 97) letter -= 32;         // ASCII di a = 97 --> converte in maiuscola
 
-    if(letter==74||letter==75) throw std::invalid_argument("Invalid argument"); //se input è J o K non può essere convertito
+    if (letter == 74 || letter == 75) throw std::invalid_argument("Invalid argument"); //se input è J o K non può essere convertito
 
-    if (letter > 73) letter -= 2;   // ASCII di J = 74
-    letter -= 65;                   // ASCII di A = 65 --> converte in numero
+    if (letter > 73) letter -= 2;           // ASCII di J = 74
+    letter -= 65;                           // ASCII di A = 65 --> converte in numero
 
-    int number = std::stoi(s.substr(1)); //può lanciare std::invalid_argument
+    int number = std::stoi(s.substr(1));    //può lanciare std::invalid_argument
     number--;
 
     x = number;
@@ -31,9 +32,9 @@ Pos::Pos(std::string s) {
 }
 
 std::string Pos::toString() {
-    y += 65;                        // ASCII di A = 65
+    y += 65;                                // ASCII di A = 65
     x += 1;
-    if (y > 73) y += 2;             // ASCII di J = 74
+    if (y > 73) y += 2;                     // ASCII di J = 74
 
     std::string letter = "";
     letter += (char) y;
@@ -42,15 +43,15 @@ std::string Pos::toString() {
     return letter + number;
 }
 
-Pos operator+ (Pos p1, Pos p2) {
+Pos operator+(Pos p1, Pos p2) {
     return Pos (p1.x + p2.x, p1.y + p2.y);
 }
 
-Pos operator- (Pos p1, Pos p2) {
+Pos operator-(Pos p1, Pos p2) {
     return Pos (p1.x - p2.x, p1.y - p2.y);
 }
 
-bool operator== (Pos p1, Pos p2) {
+bool operator==(Pos p1, Pos p2) {
     return (p1.x == p2.x) && (p1.y == p2.y);
 }
 

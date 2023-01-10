@@ -15,11 +15,12 @@
 
 /*
     enum per poter fare lo switch sulle varie modalita' di gioco:
-    pc = playervs computer
+    pc = player vs computer
     cc = computer vs computer
+    pp = player vs player
 */
 enum Arguments {
-    invalidArgument, pc, cc,pp
+    invalidArgument, pc, cc, pp
 };
 
 Arguments resolveArgument(std::string input) {
@@ -30,57 +31,60 @@ Arguments resolveArgument(std::string input) {
     return invalidArgument;
 }
 
-std::vector<std::string> matchActions; //tiene conto delle azioni per il replay
+/*
+    tiene conto delle azioni per il replay
+*/
+std::vector<std::string> matchActions;
 
 int main(int argc, char* argv[]) {
     
-    if (argc < 2) { //controllo che venga inserita la modaita' di gioco
+    if (argc < 2) {                 //controllo che venga inserita la modaita' di gioco
         std::cout << "Non e' stata inserito l'argomento che specifica la modalita' di gioco!\n";
         return 0;
     }
 
     std::string argument = argv[1];
     
-    Player p1,p2;
-    Computer c1, c2;
+    Player p1 ("Giocatore 1"), p2 ("Giocatore 2");
+    Computer c1 ("Computer 1"), c2 ("Computer 2");
 
     switch (resolveArgument(argument)) {
-    case pc://player vs computer
-        insertPlayerShip(p1);
-        insertComputerShip(c1);
-        gameLoop(p1,c1);
-        break;
-    case cc://computer vs computer
-        insertComputerShip(c1);
-        insertComputerShip(c2);
-        gameLoop(c1,c2);
-        break;
-    case pp://player vs player
-        insertPlayerShip(p1);
-        insertPlayerShip(p2);
-        gameLoop(p1,p2);
-        break;
-    default://viene inserita una modalita' di gioco non in elenco 
-        std::cout << "Inserire:\n"
-            << "- \"pc\" se si vuole eseguire una partita player vs computer\n" 
-            << "- \"cc\" se si vuole eseguire una partita computer vs computer" << std::endl;
-        return 0;
-        break;
+        case pc:                    //player vs computer
+            insertPlayerShip(p1);
+            insertComputerShip(c1);
+            gameLoop(p1,c1);
+            break;
+        case cc:                    //computer vs computer
+            insertComputerShip(c1);
+            insertComputerShip(c2);
+            gameLoop(c1,c2);
+            break;
+        case pp:                    //player vs player
+            insertPlayerShip(p1);
+            insertPlayerShip(p2);
+            gameLoop(p1,p2);
+            break;
+        default:                    //viene inserita una modalita' di gioco non in elenco 
+            std::cout << "Inserire:\n"
+                << "- \"pc\" se si vuole eseguire una partita player vs computer\n" 
+                << "- \"cc\" se si vuole eseguire una partita computer vs computer" << std::endl;
+            return 0;
+            break;
     }
 
-    exportLog(matchActions);//scrittura del log della partita
+    exportLog(matchActions);        //scrittura del log della partita
     return 0;
 }
     
 void insertPlayerShip(Player& p) {
     std::string front, back, point;
-    for (int i = 0; i < 3;) {//inserimento corazzate
-        std::cout<< "Inserire le coordinate della prua e della poppa della "<< i+1 <<" corazzata:" << std::endl;
+    for (int i = 0; i < 3;) {       //inserimento corazzate
+        std::cout << "Inserire le coordinate della prua e della poppa della " << (i + 1) << " corazzata:" << std::endl;
         std::cin >> front >> back;
         try {
             std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
             if (p.getDefenceField().insertShip(u)) { 
-                matchActions.push_back(front+" "+back);
+                matchActions.push_back(front + " " + back);
                 i++;
             }
         } catch (const Ship::illegal_length_exception& e) {
@@ -93,12 +97,12 @@ void insertPlayerShip(Player& p) {
             std::cout << e.what();
         }
     }
-    for (int i = 0; i < 3;) {//inserimento navi di supporto
-        std::cout<< "Inserire le coordinate della prua e della poppa della "<< i+1 <<" nave di supporto:" << std::endl;
+    for (int i = 0; i < 3;) {       //inserimento navi di supporto
+        std::cout << "Inserire le coordinate della prua e della poppa della " << (i + 1) << " nave di supporto:" << std::endl;
         std::cin >> front >> back;
         try {
             std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
-            if (p.getDefenceField().insertShip(u)){
+            if (p.getDefenceField().insertShip(u)) {
                 matchActions.push_back(front + " " + back);
                 i++;
             }
@@ -112,12 +116,12 @@ void insertPlayerShip(Player& p) {
             std::cout << e.what();
         }
     }
-    for(int i = 0; i < 2;) {//inserimento sottomarino
-        std::cout<< "Inserire le coordinate del "<< i+1 <<" sottomarino:" << std::endl;
+    for (int i = 0; i < 2;) {       //inserimento sottomarino
+        std::cout << "Inserire le coordinate del " << (i + 1) << " sottomarino:" << std::endl;
         std::cin >> point;
-        try{
+        try {
             std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
-            if (p.getDefenceField().insertShip(u)){
+            if (p.getDefenceField().insertShip(u)) {
                 matchActions.push_back(point);
                 i++;
             }
@@ -132,31 +136,31 @@ void insertPlayerShip(Player& p) {
 }
 
 void insertComputerShip(Computer& c) {
-    for (int i = 0; i < 3;) {//inserimento corazzate 
+    for (int i = 0; i < 3;) {       //inserimento corazzate 
         std::vector<std::string> coordinates = c.createRandomShip(5);
         try {
             std::shared_ptr<BattleShip> u = std::make_shared<BattleShip>(coordinates[0],coordinates[1]);
             if (c.getDefenceField().insertShip(u)) {
-                matchActions.push_back(coordinates[0]+" "+coordinates[1]);
+                matchActions.push_back(coordinates[0] + " " + coordinates[1]);
                 i++;
             }
         } catch (const DefenceField::out_of_bound_exception& e) {
         } catch (const DefenceField::overlap_exception& e) {
         }
     }
-    for (int i = 0; i < 3;) {//inserimento navi supporto
+    for (int i = 0; i < 3;) {       //inserimento navi supporto
         std::vector<std::string> coordinates = c.createRandomShip(3);
         try {
             std::shared_ptr<HealShip> u = std::make_shared<HealShip>(coordinates[0], coordinates[1]);
             if (c.getDefenceField().insertShip(u)) {
-                matchActions.push_back(coordinates[0]+" "+coordinates[1]);
+                matchActions.push_back(coordinates[0] + " " + coordinates[1]);
                 i++;
             }
         } catch (const DefenceField::out_of_bound_exception& e) {
         } catch (const DefenceField::overlap_exception& e) {
         } 
     }
-    for (int i = 0; i < 2;) {//inserimento sottomarino
+    for (int i = 0; i < 2;) {       //inserimento sottomarino
         std::vector<std::string> coordinates = c.createRandomShip(1);
         try {
             std::shared_ptr<Submarine> u = std::make_shared<Submarine>(coordinates[0]);
@@ -170,8 +174,7 @@ void insertComputerShip(Computer& c) {
     }
 }
 
-//il metodo ritorna false quando la partita finisce in modo che il while di gameLoop si interrompa
-bool endGame (Player p1, Player p2,int round) {
+bool endGame (Player p1, Player p2, int round) {
     const int MAX_TURN = 104;
     if (p1.getDefenceField().getShipCount() == 0 && p2.getDefenceField().getShipCount() == 0) {
         std::cout << "Partita terminata in pareggio" << std::endl;
@@ -194,7 +197,10 @@ bool endGame (Player p1, Player p2,int round) {
 
 template <typename T, typename U> 
 void gameLoop (T& p1, U& p2) {
-    int turn = randomNum(1);//scelta casuale di chi inizia a giocare per primo
+
+    //scelta casuale di chi inizia a giocare per primo / 0 : inizia p1 / 1 : inizia p2
+    int turn = randomNum(1);
+
     int turnCounter = 1;
     matchActions.push_back(std::to_string(turn));
     do {

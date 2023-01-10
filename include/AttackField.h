@@ -43,6 +43,11 @@ class AttackField {
         void clearMiss();
 
         /*
+            metodo per sparare in ogni cella del campo    
+        */
+        void nukeField();
+
+        /*
             metodo per restituire il campo 
         */
         std::vector<std::string>& getField();

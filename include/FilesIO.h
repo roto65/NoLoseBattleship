@@ -15,7 +15,7 @@ std::queue<std::string> importLog (std::string path);
 /*
     metodo che scrive il log di una partita a partre da un vettore di stringhe (comandi di gioco)
 */
-void exportLog(std::vector<std::string> matchActions, std::string path = defaultLogPath);
+void exportLog(std::vector<std::string> inData, std::string path = defaultLogPath);
 
 
 #endif //FILES_IO_H
