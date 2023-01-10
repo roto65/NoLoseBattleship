@@ -1,4 +1,4 @@
-# NoLoseBattleship
+# Battaglia Navale
 
 ## Descrizione del progetto
 
@@ -13,11 +13,11 @@ Il file di log di ogni partita viene salvato all'interno della cartella *log*.
 La cartella contiene:
  - **log_cc.txt**
 
-   File di log risultato di una partita computer vs. computer
+    File di log risultato di una partita computer vs. computer
 
  - **log_pc.txt**
 
-   File di log risultato di una partita giocatore vs. computer
+    File di log risultato di una partita giocatore vs. computer
 
  - **log_replay.txt**
 
@@ -25,11 +25,11 @@ La cartella contiene:
 
  - **log.txt** 
 
-   File di log dell'ulitma parita svolta dal programma, viene aggiornato in seguito a ciascuna esecuzione
+    File di log dell'ulitma parita svolta dal programma, viene aggiornato in seguito a ciascuna esecuzione
 
 **[Attenzione!]**
 
- Il file di log contiene soltanto dati fondamentali per l'esecuzione del replay. Non sono contenuti i comandi speciali con funzionalita' puramente estetica.
+Il file di log contiene soltanto dati fondamentali per l'esecuzione del replay. Non sono contenuti i comandi speciali con funzionalita' puramente estetica.
 
 ---
 
@@ -61,7 +61,7 @@ Argomenti di replay:
 
     - **input path**
 
-         percorso del file di log di cui effettuare il replay
+        percorso del file di log di cui effettuare il replay
 
  - **f**
 
@@ -69,11 +69,11 @@ Argomenti di replay:
 
     - **input path**
 
-         percorso del file di log di cui effettuare il replay
+        percorso del file di log di cui effettuare il replay
 
     - **output path**
 
-         percorso del file in cui viene salvato il replay
+        percorso del file in cui viene salvato il replay
 
 **[Attenzione!]** 
 
@@ -87,23 +87,23 @@ Durante una partita un giocatore puo' decidere di utilizzare i comandi speciali 
 
  - **AA AA**
  
-   rimuove tutte le rilevazioni sonar dal campo di attacco
+    rimuove tutte le rilevazioni sonar dal campo di attacco
  
  - **BB BB**
  
-   rimuove tutti i colpi andati a segno dal campo di attacco
+    rimuove tutti i colpi andati a segno dal campo di attacco
  
  - **CC CC**
  
-   rimuove tutti i colpi andati a vuoto dal campo di attacco
+    rimuove tutti i colpi andati a vuoto dal campo di attacco
  
  - **HH HH**
  
-   fornisce la lista di tutte le azioni speciali compibili
+    fornisce la lista di tutte le azioni speciali compibili
  
  - **XX XX**
  
-   stampa le griglie di attacco e difesa del giocatore corrente
+    stampa le griglie di attacco e difesa del giocatore corrente
 
 E' stato implementato anche il comando speciale **NN NN** che finisce immediatamente la partita in pareggio lanciando una bomba nucleare (*nuke*) sul campo di difesa di ciascun giocatore
 

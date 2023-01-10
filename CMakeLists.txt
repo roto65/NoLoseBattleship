@@ -3,10 +3,10 @@ set(CMAKE_CXX_STANDARD 11)
 project(BattagliaNavale)
 
 if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_CXX_FLAGS_DEBUG "-O2")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
 include_directories(include)
 
