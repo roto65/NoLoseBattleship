@@ -1,3 +1,5 @@
+// Autore: Simone Pietrogrande (2032448)
+
 #ifndef BATTLESHIP_H
 #define BATTLESHIP_H
 

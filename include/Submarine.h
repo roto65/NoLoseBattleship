@@ -1,3 +1,5 @@
+// Autore: Simone Pietrogrande (2032448)
+
 #ifndef SUBMARINE_H
 #define SUBMARINE_H
 

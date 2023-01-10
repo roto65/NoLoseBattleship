@@ -1,3 +1,5 @@
+// Autore: Francesco Ariani (2041835)
+
 #include <string>
 #include <iostream>
 #include <vector>

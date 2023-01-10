@@ -1,3 +1,5 @@
+// Autore: Francesco Ariani (2041835)
+
 #include <array>
 #include <vector>
 #include <string>
@@ -49,7 +51,10 @@ std::string DummyPlayer::getFields() {
 void DummyPlayer::action(std::string XYOrigin, std::string XYTarget, Player& p2) {
     if (XYOrigin == "NN" && XYTarget == "NN") {
         _df.nukeShips();
+        _af.nukeField();
+
         p2.getDefenceField().nukeShips();
+        p2.getAttackField().nukeField();
     } else {
         activateShipAction(XYOrigin, XYTarget, *this, p2);
     }

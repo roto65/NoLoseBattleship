@@ -1,3 +1,5 @@
+// Autore: Simone Pietrogrande (2032448)
+
 #include <string>
 #include <vector>
 #include <memory>

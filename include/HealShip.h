@@ -1,8 +1,10 @@
+// Autore: Simone Pietrogrande (2032448)
+
 #ifndef HEALSHIP_H
 #define HEALSHIP_H
 
-#include <string>
 #include <vector>
+#include <string>
 #include <memory>
 
 #include "Ship.h"

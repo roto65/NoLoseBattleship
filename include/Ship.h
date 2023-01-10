@@ -1,3 +1,5 @@
+// Autore: Simone Pietrogrande (2032448)
+
 #ifndef SHIP_H
 #define SHIP_H
 

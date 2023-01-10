@@ -1,3 +1,5 @@
+// Autore: Alessandro Rotondo (2032447)
+
 #ifndef DEFENCE_FIELD_H
 #define DEFENCE_FIELD_H
 

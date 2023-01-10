@@ -1,3 +1,5 @@
+// Autore: Francesco Ariani (2041835)
+
 #ifndef MAIN_H
 #define MAIN_H
 

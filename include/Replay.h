@@ -1,3 +1,5 @@
+// Autore: Francesco Ariani (2041835)
+
 #ifndef REPLAY_H
 #define REPLAY_H
 
@@ -7,11 +9,7 @@
 #include "DummyPlayer.h"
 
 /*
-    classe per la gestione dei replay
-*/
-
-/*
-    metodo per inserire le navi di un dummy player 
+    metodo per inserire le navi di un DummyPlayer
 */
 void insertShip(DummyPlayer& p);
 

@@ -2,7 +2,7 @@
 
 ## Descrizione del progetto
 
-Now something works!
+Programma in C++ che implementa una versione avanzata del gioco Battaglia Navale. 
 
 ---
 
@@ -138,6 +138,9 @@ Per avviare gli eseguibili generati sono consigliati i seguenti comandi:
  ## Autori
 
 Questo progetto e' stato realizzato da:
- - Francesco Ariani
- - Simone Pietrogrande
- - Alessandro Rotondo
+
+| Nome                | Matricola |
+| ------------------- | --------- |
+| Francesco Ariani    | 2041835   |
+| Simone Pietrogrande | 2032448   |
+| Alessandro Rotondo  | 2032447   |

@@ -1,3 +1,5 @@
+// Autore: Alessandro Rotondo (2032447)
+
 #ifndef ATTACK_FIELD_H
 #define ATTACK_FIELD_H
 

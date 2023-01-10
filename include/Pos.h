@@ -1,3 +1,5 @@
+// Autore: Francesco Ariani (2041835)
+
 #ifndef POS_H
 #define POS_H
 

@@ -1,3 +1,5 @@
+// Autore: Alessandro Rotondo (2032447)
+
 #include <vector>
 #include <string>
 

@@ -1,3 +1,5 @@
+// Autore: Alessandro Rotondo (2032447)
+
 #ifndef COMPUTER_H
 #define COMPUTER_H
 

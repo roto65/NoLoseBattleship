@@ -1,3 +1,5 @@
+// Autore: Alessandro Rotondo (2032447)
+
 #ifndef TYPES_H
 #define TYPES_H
 

@@ -1,3 +1,5 @@
+// Autore: Francesco Ariani (2041835)
+
 #include <string>
 #include <iostream>
 #include <queue>
@@ -13,7 +15,7 @@
 #include "HealShip.h"
 #include "Submarine.h"
 
-std::queue<std::string> match_actions;
+std::queue<std::string> Vercingetorige;
 
 constexpr int sleepTime = 1;
 
@@ -54,15 +56,15 @@ int main (int argc, char* argv[]) {
     std::string outputPath, XYTarget, XYOrigin;
 
     DummyPlayer p1 ("Giocatore 1"), p2 ("Giocatore 2");
-    match_actions = importLog(inputPath);
+    Vercingetorige = importLog(inputPath);
 
     insertShip(p1);
     insertShip(p2);
     
     std::vector<std::string> outputVector;
     
-    int startPlayer = std::stoi(match_actions.front());
-    match_actions.pop();
+    int startPlayer = std::stoi(Vercingetorige.front());
+    Vercingetorige.pop();
 
     std::string startPlayerLine = "Inizia il giocatore " + std::to_string(startPlayer + 1) + "\n";
 
@@ -78,9 +80,9 @@ int main (int argc, char* argv[]) {
 
             std::cout << startPlayerLine << std::endl;
 
-            while (!match_actions.empty()) {
-                XYOrigin = nextElem(match_actions);
-                XYTarget = nextElem(match_actions);
+            while (!Vercingetorige.empty()) {
+                XYOrigin = nextElem(Vercingetorige);
+                XYTarget = nextElem(Vercingetorige);
 
                 if (startPlayer % 2 == 0) {
                     p1.action(XYOrigin, XYTarget, p2);
@@ -98,9 +100,9 @@ int main (int argc, char* argv[]) {
             outputVector.push_back(p2.getFields());
             outputVector.push_back(startPlayerLine);
 
-            while(!match_actions.empty()) {
-                XYOrigin = nextElem(match_actions);
-                XYTarget = nextElem(match_actions);
+            while(!Vercingetorige.empty()) {
+                XYOrigin = nextElem(Vercingetorige);
+                XYTarget = nextElem(Vercingetorige);
 
                 if (startPlayer % 2 == 0) {
                     p1.action(XYOrigin, XYTarget, p2);
@@ -127,19 +129,19 @@ int main (int argc, char* argv[]) {
 void insertShip(DummyPlayer& p) {
     std::string front, back, point;
     for (int i = 0; i < 3; i++) {
-        front = nextElem(match_actions);
-        back = nextElem(match_actions);
+        front = nextElem(Vercingetorige);
+        back = nextElem(Vercingetorige);
         std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
         p.getDefenceField().insertShip(u);
     }
     for (int i = 0; i < 3; i++) {
-        front = nextElem(match_actions);
-        back = nextElem(match_actions);
+        front = nextElem(Vercingetorige);
+        back = nextElem(Vercingetorige);
         std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
         p.getDefenceField().insertShip(u);
     }
     for (int i = 0; i < 2; i++) {
-        point=nextElem(match_actions);
+        point=nextElem(Vercingetorige);
         std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
         p.getDefenceField().insertShip(u);
     }

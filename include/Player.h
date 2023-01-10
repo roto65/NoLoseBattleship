@@ -1,3 +1,5 @@
+// Autore: Alessandro Rotondo (2032447)
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
