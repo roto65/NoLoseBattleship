@@ -22,7 +22,7 @@ HealShip::HealShip (std::string front, std::string back) {
         throw illegal_length_exception();
     }
 
-    //controllo se la nave inserita è orizzontale o verticale 
+    //controllo se la nave inserita e' orizzontale o verticale 
     if (F.x == B.x) {
         _facing = 1;
     } else {
@@ -56,13 +56,13 @@ bool HealShip::move (std::string XYTarget, std::vector<std::shared_ptr<Ship>> sh
                 return false;
             }
 
-            //controllo che la nave non si sovrapponga ad altre già presenti
+            //controllo che la nave non si sovrapponga ad altre gia' presenti
             for (std::shared_ptr<Ship> s : ship) {          //scorre tutte le navi 
                 if (s->getMidPos() == _midPos) continue;    //evita di fare controlli sulla nave che sta facendo l'azione
                 std::vector<Pos> segment = getSegments(s);
                 for (Pos p : segment) {                     //scorre tutte le posizioni occupate dalla nave
                     if (p == targetPos || p == (targetPos + Pos(-1,0)) || p == (targetPos + Pos(1,0))) {
-                        return false;                       //la nave andrebbe a collidere con una già esistente
+                        return false;                       //la nave andrebbe a collidere con una gia' esistente
                     }
                 }
                 if ((targetPos.x -1) < 0 || (targetPos.x + 1) > 11) {
@@ -101,7 +101,7 @@ void HealShip::heal(std::vector<std::shared_ptr<Ship>>& ship) {
 
             /*
                 il controllo che un segmento di una nave sia dentro l'area di influenza della HealShip
-                 è effetuato controllando che la distanza tra il segmento e il centro della HealShip sia <=1 
+                 e' effetuato controllando che la distanza tra il segmento e il centro della HealShip sia <=1 
                  per entrambi gli assi cartesiani  
             */
             if (std::abs(pos.x - _midPos.x) <= 1 && std::abs(pos.y - _midPos.y) <= 1) {

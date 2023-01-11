@@ -1,3 +1,5 @@
+# Autore: Alessandro Rotondo (2032447)
+
 cmake_minimum_required(VERSION 2.84)
 set(CMAKE_CXX_STANDARD 11)
 project(BattagliaNavale)

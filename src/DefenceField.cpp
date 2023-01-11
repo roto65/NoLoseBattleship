@@ -25,7 +25,7 @@ bool DefenceField::insertShip(std::shared_ptr<Ship> newShip) {
     std::vector<Pos> temp = getSegments(newShip);               //variabile per tenere conto della posizione occupata dalla nave che sta venendo inserita
     for (int i = 0; i < len; i++) {
         if (temp[i].x < 0 || temp[i].x > 11 || temp[i].y < 0 || temp[i].y > 11) { 
-            throw out_of_bound_exception();                     //se un pezzo della nave è fuori dal campo questa non viene inserita
+            throw out_of_bound_exception();                     //se un pezzo della nave e' fuori dal campo questa non viene inserita
         } else {
             for (std::shared_ptr<Ship> s : _defenceField) {
                 std::vector<Pos> segments = getSegments(s);

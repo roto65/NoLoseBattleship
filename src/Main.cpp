@@ -179,19 +179,23 @@ void insertComputerShip(Computer& c) {
 bool endGame (Player p1, Player p2, int round) {
     const int MAX_TURN = 104;
     if (p1.getDefenceField().getShipCount() == 0 && p2.getDefenceField().getShipCount() == 0) {
-        std::cout << "Partita terminata in pareggio" << std::endl;
+        std::cout << "Nuke sganciata: tutte le navi sono state distrutte!" << std::endl;
+        matchActions.push_back("PP 00");
         return false;
     }
     if (p1.getDefenceField().getShipCount() == 0) {
         std::cout << "Vittoria per il giocatore 2!" << std::endl;
+        matchActions.push_back("PP 02");
         return false;
     }
     if (p2.getDefenceField().getShipCount() == 0) {
         std::cout << "Vittoria per il giocatore 1!" << std::endl;
+        matchActions.push_back("PP 01");
         return false;
     }
     if (round > MAX_TURN) {
         std::cout << "Limite massimo di turni raggiunto: partita terminata in pareggio" << std::endl;
+        matchActions.push_back("PP 104");
         return false;
     }
     return true;
@@ -216,5 +220,5 @@ void gameLoop (T& p1, U& p2) {
         }
         turn++;
         turnCounter++;
-    } while(endGame(p1,p2,turnCounter));
+    } while (endGame(p1,p2,turnCounter));
 }

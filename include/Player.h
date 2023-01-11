@@ -36,7 +36,7 @@ class Player {
         void printFields();
 
         /*
-            metodo che risìchiede al giocatore di inserie l'azione che desidera compiere
+            metodo che chiede al giocatore di inserie l'azione che desidera compiere
         */
         void action(Player& p2, std::vector<std::string>& matchActions); 
 

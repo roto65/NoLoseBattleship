@@ -133,6 +133,14 @@ Per avviare gli eseguibili generati sono consigliati i seguenti comandi:
  - ```./replay v log/log.txt```
  - ```./replay f log/log_pc.txt log/log_replay.txt```
 
+### Inserimento delle navi
+
+Per inserire le navi piu' rapidamente nel proprio campo di difesa e' possibile incollare nel terminale la seguente combinazione:
+
+```a1 a5 b1 b5 c1 c5 d1 d3 e1 e3 f1 f3 h1 h2```
+
+E' possibile utilizzare un comando simile soltanto durante l'inserimento della prima corazzata poiche' esso contiene i valori richiesti per l'inserimento di tutte le 8 navi presenti in un campo di difesa
+
  ---
 
  ## Autori

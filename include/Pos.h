@@ -18,7 +18,7 @@ struct Pos {
     Pos (std::string s);
 
     /*
-        metodo che prende una coordinata è la converte in una stringa
+        metodo che prende una coordinata e la converte in una stringa
     */
     std::string toString();
 

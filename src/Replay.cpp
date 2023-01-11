@@ -38,7 +38,7 @@ Arguments resolveArgument (std::string input) {
 int main (int argc, char* argv[]) {
 
     if (argc < 2 ) {
-        std::cout << "Non è stato inserito l'argomento che specifica la modalita' di replay!" << std::endl;
+        std::cout << "Non e' stato inserito l'argomento che specifica la modalita' di replay!" << std::endl;
         return 0;
     }
     std::string argument = argv[1];
@@ -84,15 +84,27 @@ int main (int argc, char* argv[]) {
                 XYOrigin = nextElem(Vercingetorige);
                 XYTarget = nextElem(Vercingetorige);
 
-                if (startPlayer % 2 == 0) {
-                    p1.action(XYOrigin, XYTarget, p2);
-                    p1.printFields();
+                if (XYOrigin == "PP") {
+                    if (XYTarget == "00") {
+                        std::cout << "Nuke sganciata: tutte le navi sono state distrutte!" << std::endl;
+                    } else if (XYTarget == "01") {
+                        std::cout << "Vittoria per il giocatore 1!" << std::endl;
+                    } else if (XYTarget == "02") {
+                        std::cout << "Vittoria per il giocatore 2!" << std::endl;
+                    } else if (XYTarget == "104") {
+                        std::cout << "Limite massimo di turni raggiunto: partita terminata in pareggio" << std::endl;
+                    }
                 } else {
-                    p2.action(XYOrigin, XYTarget, p1);
-                    p2.printFields();
+                    if (startPlayer % 2 == 0) {
+                        p1.action(XYOrigin, XYTarget, p2);
+                        p1.printFields();
+                    } else {
+                        p2.action(XYOrigin, XYTarget, p1);
+                        p2.printFields();
+                    }
+                    std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
+                    startPlayer++;
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(sleepTime));
-                startPlayer++;
             }
             break;
         case f:
@@ -104,14 +116,26 @@ int main (int argc, char* argv[]) {
                 XYOrigin = nextElem(Vercingetorige);
                 XYTarget = nextElem(Vercingetorige);
 
-                if (startPlayer % 2 == 0) {
-                    p1.action(XYOrigin, XYTarget, p2);
-                    outputVector.push_back(p1.getFields());
+                if (XYOrigin == "PP") {
+                    if (XYTarget == "00") {
+                        outputVector.push_back("Nuke sganciata: tutte le navi sono state distrutte!");
+                    } else if (XYTarget == "01") {
+                        outputVector.push_back("Vittoria per il giocatore 1!");
+                    } else if (XYTarget == "02") {
+                        outputVector.push_back("Vittoria per il giocatore 2!");
+                    } else if (XYTarget == "104") {
+                        outputVector.push_back("Limite massimo di turni raggiunto: partita terminata in pareggio");
+                    }
                 } else {
-                    p2.action(XYOrigin, XYTarget, p1);
-                    outputVector.push_back(p2.getFields());
-                }
-                startPlayer++;                  
+                    if (startPlayer % 2 == 0) {
+                        p1.action(XYOrigin, XYTarget, p2);
+                        outputVector.push_back(p1.getFields());
+                    } else {
+                        p2.action(XYOrigin, XYTarget, p1);
+                        outputVector.push_back(p2.getFields());
+                    }
+                    startPlayer++;   
+                }               
             }
             outputPath = argv[3];
             exportLog(outputVector, outputPath);

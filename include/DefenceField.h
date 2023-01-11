@@ -62,7 +62,7 @@ class DefenceField {
 
         /*
             eccezione lanciata nel caso si cerchi di posizionare una nave 
-            che vada a sovrapporsi a una già esistente
+            che vada a sovrapporsi a una gia' esistente
         */
         class overlap_exception : public std::exception {
             public:

@@ -32,10 +32,10 @@ std::string Computer::selectRandomShip(std::vector<std::shared_ptr<Ship>> s) {
 }
 
 void Computer::action(Player& p2, std::vector<std::string>& matchActions) {
-    if (_df.getShipCount() == 0) {      //se non ci sono più navi disponibili viene passato il turno
+    if (_df.getShipCount() == 0) {      //se non ci sono piu' navi disponibili viene passato il turno
         return;
     }
-    bool actionDone;                    //verifica se è stata eseguita un azione / false azione non esguita /true azione eseguita
+    bool actionDone;                    //verifica se e' stata eseguita un azione / false azione non esguita /true azione eseguita
     do {
         actionDone = false;
         std::string XYOrigin = selectRandomShip(_df.getShipArray());

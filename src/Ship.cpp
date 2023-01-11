@@ -13,7 +13,7 @@ Ship::Ship() {
 bool Ship::isSunk() {
     bool check = true;                                                          //verifica le condizioni della nave / true = affondata / false = ancora a galla
     for (int i = 0; i < _shield.size() && check; i++) {
-        if ((int) _shield[i] >= 65 && (int) _shield[i] <= 90) check = false;    // se almeno un segmento non è colpito segna la nave a galla
+        if ((int) _shield[i] >= 65 && (int) _shield[i] <= 90) check = false;    // se almeno un segmento non e' colpito segna la nave a galla
     }
     return check;
 }

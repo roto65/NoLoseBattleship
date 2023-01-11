@@ -43,7 +43,21 @@ class Ship {
         */
         virtual bool action(std::string XYTarget, Player& p1, Player& p2) = 0; 
         //p1 giocatore che esegue l'azione / p2 giocatore che subisce l'azione
-        
+
+        /*
+            metodo che restituisce lo stato di una nave:
+            true se la nave e affondata;
+            false se la nave e' ancora in gioco 
+        */
+        bool isSunk();
+
+        /*
+            distruttore di default per tutti gli oggetti di tipo Ship
+            dichiarato virtual in modo da richiamare anche i distruttori delle 
+            classi che estendono Ship
+        */
+        virtual ~Ship() = default;
+
         /*
             eccezione lanciata se le coordinata inserite per creare una nave 
             non rispettano la sua lunghezza
@@ -55,13 +69,6 @@ class Ship {
                 }
         };
         
-        /*
-            metodo che restituisce lo stato di una nave:
-            true se la nave e affondata;
-            false se la nave e' ancora in gioco 
-        */
-        bool isSunk();
-
     protected:
         Pos _midPos;                // posizione centrale della nave. identifica la nave
         int _facing;                // 0 -> nave orizzontale / 1 -> nave verticale

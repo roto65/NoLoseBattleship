@@ -29,7 +29,8 @@ La cartella contiene:
 
 [Attenzione!]
 
-Il file di log contiene soltanto dati fondamentali per l'esecuzione del replay. Non sono contenuti i comandi speciali con funzionalita' puramente estetica.
+Il file di log contiene soltanto dati fondamentali per l'esecuzione del replay. Non sono contenuti i
+ comandi speciali con funzionalita' puramente estetica.
 
 --------------------------------------------------------------------------
 
@@ -57,7 +58,8 @@ Argomenti di battaglia_navale:
 Argomenti di replay:
  - v
 
-      l'eseguibile replay stampa a video i campi del giocatore attivo per ogni turno della partita di cui viene effettuato il replay
+      l'eseguibile replay stampa a video i campi del giocatore attivo per ogni turno della partita di
+       cui viene effettuato il replay
 
     - input path
 
@@ -65,7 +67,8 @@ Argomenti di replay:
 
  - f
 
-      l'eseguibile replay stampa su file i campi del giocatore attivo per ogni turno della partita di cui viene effettuato il replay
+      l'eseguibile replay stampa su file i campi del giocatore attivo per ogni turno della partita di
+       cui viene effettuato il replay
 
     - input path
 
@@ -77,7 +80,8 @@ Argomenti di replay:
 
 [Attenzione!] 
 
-Tutti i percorsi sono da considerarsi relativi rispetto all'eseguibile replay. Specificare sempre l'estensione dei file di cui si inserisce il percorso
+Tutti i percorsi sono da considerarsi relativi rispetto all'eseguibile replay. Specificare sempre
+ l'estensione dei file di cui si inserisce il percorso
 
 --------------------------------------------------------------------------
 
@@ -105,7 +109,8 @@ Durante una partita un giocatore puo' decidere di utilizzare i comandi speciali 
  
    stampa le griglie di attacco e difesa del giocatore corrente
 
-E' stato implementato anche il comando speciale NN NN che finisce immediatamente la partita in pareggio lanciando una bomba nucleare (nuke) sul campo di difesa di ciascun giocatore
+E' stato implementato anche il comando speciale NN NN che finisce immediatamente la partita in pareggio
+ lanciando una bomba nucleare (nuke) sul campo di difesa di ciascun giocatore
 
 --------------------------------------------------------------------------
 
@@ -113,7 +118,9 @@ Comandi utili
 
 Compilazione
 
-Questo progetto utilizza CMake per compilare il codice contenuto. Per configurare il progetto CMake e generare i file necessari per il build (specifici per l'ambiente in uso) entrare nella cartella del progetto tramite terminale ed eseguire: 
+Questo progetto utilizza CMake per compilare il codice contenuto. Per configurare il progetto CMake e
+ generare i file necessari per il build (specifici per l'ambiente in uso) entrare nella cartella del
+ progetto tramite terminale ed eseguire: 
 
 cmake .
 
@@ -132,6 +139,16 @@ Per avviare gli eseguibili generati sono consigliati i seguenti comandi:
  - ./battaglia_navale pc
  - ./replay v log/log.txt
  - ./replay f log/log_pc.txt log/log_replay.txt
+
+Inserimento delle navi
+
+Per inserire le navi piu' rapidamente nel proprio campo di difesa e' possibile incollare nel terminale
+ la seguente combinazione:
+
+a1 a5 b1 b5 c1 c5 d1 d3 e1 e3 f1 f3 h1 h2
+
+E' possibile utilizzare un comando simile soltanto durante l'inserimento della prima corazzata poiche'
+ esso contiene i valori richiesti per l'inserimento di tutte le 8 navi presenti in un campo di difesa
 
 --------------------------------------------------------------------------
 
