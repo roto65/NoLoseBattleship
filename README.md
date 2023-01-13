@@ -137,7 +137,7 @@ Per avviare gli eseguibili generati sono consigliati i seguenti comandi:
 
 Per inserire le navi piu' rapidamente nel proprio campo di difesa e' possibile incollare nel terminale la seguente combinazione:
 
-```a1 a5 b1 b5 c1 c5 d1 d3 e1 e3 f1 f3 h1 h2```
+```A1 A5 B1 B5 C1 C5 D1 D3 E1 E3 F1 F3 H1 H2```
 
 E' possibile utilizzare un comando simile soltanto durante l'inserimento della prima corazzata poiche' esso contiene i valori richiesti per l'inserimento di tutte le 8 navi presenti in un campo di difesa
 
@@ -152,3 +152,5 @@ Questo progetto e' stato realizzato da:
 | Francesco Ariani    | 2041835   |
 | Simone Pietrogrande | 2032448   |
 | Alessandro Rotondo  | 2032447   |
+
+Questo progetto e' interamente disponibile su [GitHub](https://github.com/roto65/NoLoseBattleship)
