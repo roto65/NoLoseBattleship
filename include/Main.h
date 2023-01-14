@@ -7,16 +7,6 @@
 #include "Computer.h"
 
 /*
-    metodo per richiedere al giocatore le coordinate per inserire le navi 
-*/
-void insertPlayerShip(Player& p);
-
-/*
-    metodo che fa inserire casualmente le navi al computer
-*/
-void insertComputerShip(Computer& c);
-
-/*
     metodo che gestisce le condizioni di terminazione di una partita;
     decreta che giocatore ha vinto o se la partita e' finita in parita';
     il metodo ritorna false quando la partita finisce in modo che il while di gameLoop si interrompa
@@ -30,5 +20,10 @@ bool endGame(Player p1, Player p2, int round);
 */
 template <typename T, typename U>
 void gameLoop(T& p1, U& p2);
+
+/*
+    definizioni di funzioni template 
+*/
+#include "Main.hpp"
 
 #endif // MAIN_H

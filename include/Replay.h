@@ -3,19 +3,9 @@
 #ifndef REPLAY_H
 #define REPLAY_H
 
-#include <string>
-#include <queue>
-
-#include "DummyPlayer.h"
-
 /*
-    metodo per inserire le navi di un DummyPlayer
+    In fase di progettazione questo file era necessario ma successivamente tutti i metodi scritti qui dentro sono stati spostati
+    in altri file. E' rimasto in caso in cui all'interno di Replay.cpp servisse aggiungere ulteriori metodi
 */
-void insertShip(DummyPlayer& p);
-
-/*
-    metodo che combina front() e pop() di std::queue
-*/
-std::string nextElem(std::queue<std::string>& queue);
 
 #endif // REPLAY_H

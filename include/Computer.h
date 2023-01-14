@@ -9,6 +9,7 @@
 
 #include "Player.h"
 #include "Pos.h"
+#include "Ship.h"
 
 /*
     classe per la gestione di un computer che gioca
@@ -33,7 +34,12 @@ class Computer : public Player {
         /*
             metodo per far eseguire un'azione randomica al computer 
         */
-        void action (Player& p2, std::vector<std::string>& matchActions);       
+        void action (Player& p2, std::vector<std::string>& matchActions);     
+
+        /*
+            metodo che fa inserire casualmente tutte le navi al computer
+        */
+        void insertAllShips(std::vector<std::string>& matchActions);  
 };
 
 /*

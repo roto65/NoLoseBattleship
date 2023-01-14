@@ -8,7 +8,7 @@
 
 #include "FilesIO.h"
 
-std::queue<std::string> importLog (std::string path) {
+std::queue<std::string> FilesIO::importLog (std::string path) {
     std::queue<std::string> outData;
     std::string line, token1, token2;
     std::ifstream logFile(path);
@@ -30,7 +30,7 @@ std::queue<std::string> importLog (std::string path) {
     return outData;
 }
 
-void exportLog (std::vector<std::string> inData, std::string path) {
+void FilesIO::exportLog (std::vector<std::string> inData, std::string path) {
     std::ofstream logFile(path);
 
     for (std::string action : inData) {

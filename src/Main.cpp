@@ -3,17 +3,11 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <memory>
-#include <stdexcept>
 
 #include "Main.h"
 #include "FilesIO.h"
 #include "Player.h"
 #include "Computer.h"
-#include "Ship.h"
-#include "BattleShip.h"
-#include "HealShip.h"
-#include "Submarine.h"
 
 /*
     enum per poter fare lo switch sulle varie modalita' di gioco:
@@ -52,19 +46,19 @@ int main(int argc, char* argv[]) {
 
     switch (resolveArgument(argument)) {
         case pc:                    //player vs computer
-            insertPlayerShip(p1);
-            insertComputerShip(c1);
-            gameLoop(p1,c1);
+            p1.insertAllShips(matchActions);
+            c1.insertAllShips(matchActions);
+            gameLoop(p1,c1,matchActions);
             break;
         case cc:                    //computer vs computer
-            insertComputerShip(c1);
-            insertComputerShip(c2);
-            gameLoop(c1,c2);
+            c1.insertAllShips(matchActions);
+            c2.insertAllShips(matchActions);
+            gameLoop(c1,c2,matchActions);
             break;
         case pp:                    //player vs player
-            insertPlayerShip(p1);
-            insertPlayerShip(p2);
-            gameLoop(p1,p2);
+            p1.insertAllShips(matchActions);
+            p2.insertAllShips(matchActions);
+            gameLoop(p1,p2,matchActions);
             break;
         default:                    //viene inserita una modalita' di gioco non in elenco 
             std::cout << "Inserire:\n"
@@ -74,106 +68,8 @@ int main(int argc, char* argv[]) {
             break;
     }
 
-    exportLog(matchActions);        //scrittura del log della partita
+    FilesIO::exportLog(matchActions);        //scrittura del log della partita
     return 0;
-}
-    
-void insertPlayerShip(Player& p) {
-    std::string front, back, point;
-    for (int i = 0; i < 3;) {       //inserimento corazzate
-        std::cout << "Inserire le coordinate della prua e della poppa della " << (i + 1) << " corazzata:" << std::endl;
-        std::cin >> front >> back;
-        try {
-            std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
-            if (p.getDefenceField().insertShip(u)) { 
-                matchActions.push_back(front + " " + back);
-                i++;
-            }
-        } catch (const Ship::illegal_length_exception& e) {
-            std::cout << e.what();
-        } catch (const std::invalid_argument& e) {
-            std::cout << "Inserire coordinate valide" << std::endl;
-        } catch (const DefenceField::out_of_bound_exception& e) {
-            std::cout << e.what();
-        } catch (const DefenceField::overlap_exception& e) {
-            std::cout << e.what();
-        }
-    }
-    for (int i = 0; i < 3;) {       //inserimento navi di supporto
-        std::cout << "Inserire le coordinate della prua e della poppa della " << (i + 1) << " nave di supporto:" << std::endl;
-        std::cin >> front >> back;
-        try {
-            std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
-            if (p.getDefenceField().insertShip(u)) {
-                matchActions.push_back(front + " " + back);
-                i++;
-            }
-        } catch(const Ship::illegal_length_exception& e) {
-            std::cout << e.what();
-        } catch(const std::invalid_argument& e) {
-            std::cout << "Inserire coordinate valide" << std::endl;
-        } catch(const DefenceField::out_of_bound_exception& e) {
-            std::cout << e.what();
-        } catch(const DefenceField::overlap_exception& e) {
-            std::cout << e.what();
-        }
-    }
-    for (int i = 0; i < 2;) {       //inserimento sottomarino
-        std::cout << "Inserire le coordinate del " << (i + 1) << " sottomarino:" << std::endl;
-        std::cin >> point;
-        try {
-            std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
-            if (p.getDefenceField().insertShip(u)) {
-                matchActions.push_back(point);
-                i++;
-            }
-        } catch(const std::invalid_argument& e) {
-            std::cout << "Inserire coordinate valide" << std::endl;
-        } catch(const DefenceField::out_of_bound_exception& e) {
-            std::cout << e.what();
-        } catch(const DefenceField::overlap_exception& e) {
-            std::cout << e.what();
-        }
-    }
-}
-
-void insertComputerShip(Computer& c) {
-    for (int i = 0; i < 3;) {       //inserimento corazzate 
-        std::vector<std::string> coordinates = c.createRandomShip(5);
-        try {
-            std::shared_ptr<BattleShip> u = std::make_shared<BattleShip>(coordinates[0],coordinates[1]);
-            if (c.getDefenceField().insertShip(u)) {
-                matchActions.push_back(coordinates[0] + " " + coordinates[1]);
-                i++;
-            }
-        } catch (const DefenceField::out_of_bound_exception& e) {
-        } catch (const DefenceField::overlap_exception& e) {
-        }
-    }
-    for (int i = 0; i < 3;) {       //inserimento navi supporto
-        std::vector<std::string> coordinates = c.createRandomShip(3);
-        try {
-            std::shared_ptr<HealShip> u = std::make_shared<HealShip>(coordinates[0], coordinates[1]);
-            if (c.getDefenceField().insertShip(u)) {
-                matchActions.push_back(coordinates[0] + " " + coordinates[1]);
-                i++;
-            }
-        } catch (const DefenceField::out_of_bound_exception& e) {
-        } catch (const DefenceField::overlap_exception& e) {
-        } 
-    }
-    for (int i = 0; i < 2;) {       //inserimento sottomarino
-        std::vector<std::string> coordinates = c.createRandomShip(1);
-        try {
-            std::shared_ptr<Submarine> u = std::make_shared<Submarine>(coordinates[0]);
-            if (c.getDefenceField().insertShip(u)) {
-                matchActions.push_back(coordinates[0]);
-                i++;
-            }
-        } catch (const DefenceField::out_of_bound_exception& e) {
-        } catch (const DefenceField::overlap_exception& e) {
-        }
-    }
 }
 
 bool endGame (Player p1, Player p2, int round) {
@@ -199,26 +95,4 @@ bool endGame (Player p1, Player p2, int round) {
         return false;
     }
     return true;
-}
-
-template <typename T, typename U> 
-void gameLoop (T& p1, U& p2) {
-
-    //scelta casuale di chi inizia a giocare per primo / 0 : inizia p1 / 1 : inizia p2
-    int turn = randomNum(1);
-
-    int turnCounter = 1;
-    matchActions.push_back(std::to_string(turn));
-    do {
-        std::cout << "Inizio del " << turnCounter << " turno" << std::endl;
-        if (turn % 2 == 0) {
-            p1.action(p2, matchActions);
-            std::cout << "turno eseguito P1\n";
-        } else {
-            p2.action(p1, matchActions);
-            std::cout << "turno eseguito P2\n";
-        }
-        turn++;
-        turnCounter++;
-    } while (endGame(p1,p2,turnCounter));
 }

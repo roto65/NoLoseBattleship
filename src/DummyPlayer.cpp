@@ -3,8 +3,13 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <queue>
 
 #include "DummyPlayer.h"
+#include "Ship.h"
+#include "BattleShip.h"
+#include "HealShip.h"
+#include "Submarine.h"
 
 DummyPlayer::DummyPlayer() {
 
@@ -58,4 +63,31 @@ void DummyPlayer::action(std::string XYOrigin, std::string XYTarget, Player& p2)
     } else {
         activateShipAction(XYOrigin, XYTarget, *this, p2);
     }
+}
+
+void DummyPlayer::insertAllShips(std::queue<std::string>& Vercingetorige) {
+    std::string front, back, point;
+    for (int i = 0; i < 3; i++) {
+        front = nextElem(Vercingetorige);
+        back = nextElem(Vercingetorige);
+        std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
+        getDefenceField().insertShip(u);
+    }
+    for (int i = 0; i < 3; i++) {
+        front = nextElem(Vercingetorige);
+        back = nextElem(Vercingetorige);
+        std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
+        getDefenceField().insertShip(u);
+    }
+    for (int i = 0; i < 2; i++) {
+        point=nextElem(Vercingetorige);
+        std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
+        getDefenceField().insertShip(u);
+    }
+}
+
+std::string nextElem(std::queue<std::string>& queue) {
+    std::string elem = queue.front();
+    queue.pop();
+    return elem;
 }

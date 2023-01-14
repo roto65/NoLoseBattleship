@@ -12,6 +12,10 @@
 #include "AttackField.h"
 #include "DefenceField.h"
 #include "Pos.h"
+#include "Ship.h"
+#include "BattleShip.h"
+#include "HealShip.h"
+#include "Submarine.h"
 
 Player::Player() {
     
@@ -115,6 +119,81 @@ void Player::action (Player& p2, std::vector<std::string>& matchActions) {
             }
         }
     } while (!actionDone);
+}
+
+void Player::insertAllShips(std::vector<std::string>& matchActions) {
+    std::string front, back, point;
+    for (int i = 0; i < 3;) {       //inserimento corazzate
+        std::cout << "Inserire le coordinate della prua e della poppa della " << (i + 1) << " corazzata:" << std::endl;
+        std::cin >> front >> back;
+        if (front == "XX" && back == "XX") {
+            printFields();
+        } else {
+            try {
+                std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
+                if (getDefenceField().insertShip(u)) { 
+                    matchActions.push_back(front + " " + back);
+                    i++;
+                }
+            } catch (const Ship::illegal_length_exception& e) {
+                std::cout << e.what();
+            } catch (const std::invalid_argument& e) {
+                std::cout << "Inserire coordinate valide" << std::endl;
+            } catch (const DefenceField::out_of_bound_exception& e) {
+                std::cout << e.what();
+            } catch (const DefenceField::overlap_exception& e) {
+                std::cout << e.what();
+            }
+        }
+    }
+    for (int i = 0; i < 3;) {       //inserimento navi di supporto
+        std::cout << "Inserire le coordinate della prua e della poppa della " << (i + 1) << " nave di supporto:" << std::endl;
+        std::cin >> front >> back;
+        if (front == "XX" && back == "XX") {
+            printFields();
+        } else {
+            try {
+                std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
+                if (getDefenceField().insertShip(u)) {
+                    matchActions.push_back(front + " " + back);
+                    i++;
+                }
+            } catch(const Ship::illegal_length_exception& e) {
+                std::cout << e.what();
+            } catch(const std::invalid_argument& e) {
+                std::cout << "Inserire coordinate valide" << std::endl;
+            } catch(const DefenceField::out_of_bound_exception& e) {
+                std::cout << e.what();
+            } catch(const DefenceField::overlap_exception& e) {
+                std::cout << e.what();
+            }
+        }
+    }
+    for (int i = 0; i < 2;) {       //inserimento sottomarino
+        std::cout << "Inserire le coordinate del " << (i + 1) << " sottomarino:" << std::endl;
+        std::cin >> point;
+        if (point == "XX") {
+            std::string token2;
+            std::cin >> token2;
+            if (token2 == "XX") {
+                printFields();
+            }
+        } else {
+            try {
+                std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
+                if (getDefenceField().insertShip(u)) {
+                    matchActions.push_back(point);
+                    i++;
+                }
+            } catch(const std::invalid_argument& e) {
+                std::cout << "Inserire coordinate valide" << std::endl;
+            } catch(const DefenceField::out_of_bound_exception& e) {
+                std::cout << e.what();
+            } catch(const DefenceField::overlap_exception& e) {
+                std::cout << e.what();
+            }
+        }
+    }
 }
 
 bool activateShipAction(std::string XYOrigin, std::string XYTarget, Player& p1, Player& p2) {

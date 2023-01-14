@@ -1,10 +1,10 @@
 // Autore: Simone Pietrogrande (2032448)
+// int* p [5]
+#include <stdlib.h>
 
 #include <string>
 #include <memory>
 #include <vector>
-
-#include <stdlib.h>
 
 #include "Submarine.h"
 #include "Player.h"

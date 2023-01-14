@@ -4,10 +4,12 @@ cmake_minimum_required(VERSION 2.84)
 set(CMAKE_CXX_STANDARD 11)
 project(BattagliaNavale)
 
+# Impostazione del tipo di build 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+# Opzioni di ottimizzazione
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
 include_directories(include)
@@ -26,7 +28,7 @@ add_library(${PROJECT_NAME}
     src/Computer.cpp)
 
 add_executable(battaglia_navale src/Main.cpp)
-add_executable(replay src/Replay.cpp)
-
 target_link_libraries(battaglia_navale ${PROJECT_NAME})
+
+add_executable(replay src/Replay.cpp)
 target_link_libraries(replay ${PROJECT_NAME})

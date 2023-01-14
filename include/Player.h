@@ -40,6 +40,11 @@ class Player {
         */
         void action(Player& p2, std::vector<std::string>& matchActions); 
 
+        /*
+            metodo per richiedere al giocatore le coordinate per inserire tutte le navi 
+        */
+        void insertAllShips(std::vector<std::string>& matchActions);
+
     protected:
         AttackField  _af;
         DefenceField _df;

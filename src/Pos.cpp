@@ -1,9 +1,9 @@
 // Autore: Francesco Ariani (2041835)
 
+#include <math.h>
+
 #include <string>
 #include <stdexcept>
-
-#include <math.h>
 
 #include "Pos.h"
 

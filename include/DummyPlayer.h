@@ -4,6 +4,8 @@
 #define DUMMY_PLAYER_H
 
 #include <string>
+#include <queue>
+#include <string>
 
 #include "Player.h"
 
@@ -28,7 +30,17 @@ class DummyPlayer : public Player{
             venga richiesto di inserire un comando
         */
         void action (std::string XYOrigin, std::string XYTarget, Player& p2);
+
+        /*
+            metodo per inserire le navi di un DummyPlayer
+        */
+        void insertAllShips(std::queue<std::string>& Vercingetorige);
     
 };
+
+/*
+    metodo che combina front() e pop() di std::queue
+*/
+std::string nextElem(std::queue<std::string>& queue);
 
 #endif //DUMMY_ PLAYER_H

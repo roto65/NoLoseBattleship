@@ -56,10 +56,10 @@ int main (int argc, char* argv[]) {
     std::string outputPath, XYTarget, XYOrigin;
 
     DummyPlayer p1 ("Giocatore 1"), p2 ("Giocatore 2");
-    Vercingetorige = importLog(inputPath);
+    Vercingetorige = FilesIO::importLog(inputPath);
 
-    insertShip(p1);
-    insertShip(p2);
+    p1.insertAllShips(Vercingetorige);
+    p2.insertAllShips(Vercingetorige);
     
     std::vector<std::string> outputVector;
     
@@ -138,41 +138,13 @@ int main (int argc, char* argv[]) {
                 }               
             }
             outputPath = argv[3];
-            exportLog(outputVector, outputPath);
+            FilesIO::exportLog(outputVector, outputPath);
             break;
         default:
             std::cout << "Inserire:\n"
                 << "- \"v\" se si vuole vedere il replay di una partita a terminale\n" 
                 << "- \"f\" se si vuole vedere il replay di una partita in un file a parte" << std::endl;
-            return 0;
             break;
     }
     return 0;
-}
-
-void insertShip(DummyPlayer& p) {
-    std::string front, back, point;
-    for (int i = 0; i < 3; i++) {
-        front = nextElem(Vercingetorige);
-        back = nextElem(Vercingetorige);
-        std::shared_ptr<Ship> u = std::make_shared<BattleShip>(front, back);
-        p.getDefenceField().insertShip(u);
-    }
-    for (int i = 0; i < 3; i++) {
-        front = nextElem(Vercingetorige);
-        back = nextElem(Vercingetorige);
-        std::shared_ptr<Ship> u = std::make_shared<HealShip>(front,back);
-        p.getDefenceField().insertShip(u);
-    }
-    for (int i = 0; i < 2; i++) {
-        point=nextElem(Vercingetorige);
-        std::shared_ptr<Ship> u = std::make_shared<Submarine>(point);
-        p.getDefenceField().insertShip(u);
-    }
-}
-
-std::string nextElem(std::queue<std::string>& queue) {
-    std::string elem = queue.front();
-    queue.pop();
-    return elem;
 }

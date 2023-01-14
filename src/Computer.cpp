@@ -7,6 +7,10 @@
 
 #include "Computer.h"
 #include "Pos.h"
+#include "Ship.h"
+#include "BattleShip.h"
+#include "HealShip.h"
+#include "Submarine.h"
 
 constexpr int FIELD_SIZE = 11;
 
@@ -45,6 +49,45 @@ void Computer::action(Player& p2, std::vector<std::string>& matchActions) {
             actionDone = true;
         }
     } while (!actionDone);
+}
+
+void Computer::insertAllShips(std::vector<std::string>& matchActions) {
+    for (int i = 0; i < 3;) {       //inserimento corazzate 
+        std::vector<std::string> coordinates = createRandomShip(5);
+        try {
+            std::shared_ptr<BattleShip> u = std::make_shared<BattleShip>(coordinates[0],coordinates[1]);
+            if (getDefenceField().insertShip(u)) {
+                matchActions.push_back(coordinates[0] + " " + coordinates[1]);
+                i++;
+            }
+        } catch (const DefenceField::out_of_bound_exception& e) {
+        } catch (const DefenceField::overlap_exception& e) {
+        }
+    }
+    for (int i = 0; i < 3;) {       //inserimento navi supporto
+        std::vector<std::string> coordinates = createRandomShip(3);
+        try {
+            std::shared_ptr<HealShip> u = std::make_shared<HealShip>(coordinates[0], coordinates[1]);
+            if (getDefenceField().insertShip(u)) {
+                matchActions.push_back(coordinates[0] + " " + coordinates[1]);
+                i++;
+            }
+        } catch (const DefenceField::out_of_bound_exception& e) {
+        } catch (const DefenceField::overlap_exception& e) {
+        } 
+    }
+    for (int i = 0; i < 2;) {       //inserimento sottomarino
+        std::vector<std::string> coordinates = createRandomShip(1);
+        try {
+            std::shared_ptr<Submarine> u = std::make_shared<Submarine>(coordinates[0]);
+            if (getDefenceField().insertShip(u)) {
+                matchActions.push_back(coordinates[0]);
+                i++;
+            }
+        } catch (const DefenceField::out_of_bound_exception& e) {
+        } catch (const DefenceField::overlap_exception& e) {
+        }
+    }
 }
 
 Pos getRandomPosition() {
